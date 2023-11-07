@@ -1,0 +1,3 @@
+export const INIT_REQUESTS = 'INIT_REQUESTS'
+export const ADD_REQUEST = 'ADD_REQUEST'
+export const DELETE_REQUEST = 'DELETE_REQUEST'
