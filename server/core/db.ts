@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 mongoose.Promise = Promise;
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/sportHelper', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://mongo:27017/sportHelper', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
