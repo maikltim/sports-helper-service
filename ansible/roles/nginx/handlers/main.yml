@@ -1,11 +1,6 @@
 ---
-# handlers file for deploy_apache_web
-
-- name: Restart Apache Debian
-  service: name=apache2 state=restarted
-  when: ansible_os_family == "Debian"
-
-- name: Restart Apache Redhat
-  service: name=httpd state=restarted
-  when: ansible_os_family == "RedHat"
-
+# handlers file for nginx
+- name: Restart Nginx
+  service:
+    name: nginx
+    state: restarted

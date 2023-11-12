@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "../otus_linux"
+		},
+		{
+			"name": "sports-helper-service",
+			"path": "."
+		},
+		{
+			"name": "ansible_vm_role",
+			"path": "../ansible_vm_role"
+		},
+		{
+			"name": "otus_iac",
+			"path": "../otus_iac"
+		}
+	],
+	"settings": {}
+}
