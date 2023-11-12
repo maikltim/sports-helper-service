@@ -1,0 +1,16 @@
+# task  for install nginx
+- name: Install epel-release repository (for extra packages)
+  yum:
+    name: epel-release
+    state: present
+
+- name: Install Nginx
+  yum:
+    name: nginx
+    state: present
+
+- name: Start Nginx service
+  service:
+    name: nginx
+    state: started
+    enabled: yes  # Ensure Nginx starts on boot

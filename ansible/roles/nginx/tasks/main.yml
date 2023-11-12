@@ -1,0 +1,30 @@
+# tasks file for deploy_apache_web
+- name: Install epel-release repository (for extra packages)
+  yum:
+    name: epel-release
+    state: present
+
+- name: Install Nginx
+  yum:
+    name: nginx
+    state: present
+
+- name: Start Nginx service
+  service:
+    name: nginx
+    state: started
+    enabled: yes  # Ensure Nginx starts on boot
+
+- name: Copy client files to /var/www/sports-helper
+  synchronize:
+    src: "../../client"
+    dest: "/var/www/sports-helper"
+    delete: yes  # Remove extraneous files from destination directory
+
+- name: Set ownership and permissions for www user
+  file:
+    path: "/var/www/sports-helper"
+    owner: www
+    group: www
+    mode: "0755"
+    become: true

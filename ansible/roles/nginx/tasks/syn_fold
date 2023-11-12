@@ -1,0 +1,14 @@
+# task  for syn fold
+- name: Copy client files to /var/www/sports-helper
+  synchronize:
+    src: "../../client"
+    dest: "/var/www/sports-helper"
+    delete: yes  # Remove extraneous files from destination directory
+
+- name: Set ownership and permissions for www user
+  file:
+    path: "/var/www/sports-helper"
+    owner: www
+    group: www
+    mode: "0755"
+    become: true
