@@ -1,7 +1,7 @@
 # task  for syn fold
 - name: Copy client files to /var/www/sports-helper
   synchronize:
-    src: "../../client"
+    src: "../../client/build"
     dest: "/var/www/sports-helper"
     delete: yes
 
