@@ -1,0 +1,7 @@
+---
+- name: Install nginx
+  hosts: frontend
+  become: yes
+  gather_facts: true
+  roles:  
+    - nginx

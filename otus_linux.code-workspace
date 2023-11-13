@@ -16,5 +16,7 @@
 			"path": "../otus_iac"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"ansible.python.interpreterPath": "/bin/python3"
+	}
 }
