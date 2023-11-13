@@ -11,3 +11,10 @@
     apply:
       tags: syn_fold
   tags: [ syn_fold, never ]
+
+- include_tasks:
+    file: nginx_cfg.yml
+    apply:
+      tags: nginx_cfg
+  tags: [ nginx_cfg, never ]
+

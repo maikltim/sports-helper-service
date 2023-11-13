@@ -3,12 +3,24 @@
   synchronize:
     src: "../../client"
     dest: "/var/www/sports-helper"
-    delete: yes  # Remove extraneous files from destination directory
+    delete: yes
+
+- name: mkdir for web
+  file:
+    path: "/var/www/sports-helper"
+    state: directory
+    owner: nginx
+    group: nginx
+    mode: "0755"
+  become: true
 
 - name: Set ownership and permissions for www user
   file:
-    path: "/var/www/sports-helper"
-    owner: www
-    group: www
+    path: "/var/www/{{ frontend_name }}"
+    owner: nginx
+    group: nginx
     mode: "0755"
     become: true
+
+  notify:
+     - Restart Nginx
