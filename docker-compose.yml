@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.8'
 
 services:
 
@@ -7,8 +7,8 @@ services:
     restart: always
     ports:
       - '3000:3000'
-   # depends_on:
-    #  - api
+    depends_on:
+      - api
     volumes:
      - /app/node_modules
      - ./client:/app
@@ -22,7 +22,7 @@ services:
     build: ./server
     restart: always
     ports:
-      - '4000:4200'
+      - '4200:4200'
     depends_on:
       - mongo
     volumes:
