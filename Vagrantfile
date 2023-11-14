@@ -21,6 +21,26 @@ MACHINES = {
         :ip => "192.168.57.3",
 
   },
+  :prom_graf => {
+        # VM box
+        :box_name => "centos/stream8",
+        # Имя VM
+        :vm_name => "prom_graf",
+        # Количество ядер CPU
+        :cpus => 2,
+        # Указываем количество ОЗУ (В Мегабайтах)
+        :memory => 2048,
+        # Указываем IP-адрес для ВМ
+        :ip => "192.168.57.4",
+  },
+  :elk => {
+        :box_name => "centos/stream8",
+        :vm_name => "elk",
+        :cpus => 2,
+        :memory => 2048,
+        :ip => "192.168.57.5",
+
+  },
   #:barman => {
   #      :box_name => "centos/stream8",
   #      :vm_name => "barman",

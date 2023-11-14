@@ -1,3 +1,5 @@
 [clients]
 frontend ansible_host=192.168.57.2 ansible_user=vagrant ansible_ssh_private_key_file=../.vagrant/machines/frontend/virtualbox/private_key
 backend ansible_host=192.168.57.3 ansible_user=vagrant ansible_ssh_private_key_file=../.vagrant/machines/backend/virtualbox/private_key
+prom_graf ansible_host=192.168.57.4 ansible_user=vagrant ansible_ssh_private_key_file=../.vagrant/machines/frontend/virtualbox/private_key
+elk ansible_host=192.168.57.5 ansible_user=vagrant ansible_ssh_private_key_file=../.vagrant/machines/backend/virtualbox/private_key
