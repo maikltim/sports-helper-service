@@ -9,6 +9,6 @@ COPY package*.json ./
 # Установка зависимостей
 RUN npm install
 
-COPY . ./
+#COPY . ./
 
 CMD ["npm", "start"]
