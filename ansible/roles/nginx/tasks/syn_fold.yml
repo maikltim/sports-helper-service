@@ -1,10 +1,4 @@
 # task  for syn fold
-- name: Copy client files to /var/www/sports-helper
-  synchronize:
-    src: "../../client/build"
-    dest: "/var/www/sports-helper"
-    delete: yes
-
 - name: mkdir for web
   file:
     path: "/var/www/sports-helper"
@@ -13,6 +7,12 @@
     group: nginx
     mode: "0755"
   become: true
+
+- name: Copy client files to /var/www/sports-helper
+  synchronize:
+    src: "../../client/build"
+    dest: "/var/www/sports-helper"
+    delete: yes
 
 - name: Set ownership and permissions for www user
   file:
