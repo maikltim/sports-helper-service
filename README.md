@@ -1,3 +1,8 @@
-# sports-helper-service
+Подымаем тестовый контур через docker compose
 
-ansible-galaxy role install nginxinc.nginx
+```bash
+docker compose up
+```
+
+Если все поднялось, создаём папку build
+

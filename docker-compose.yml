@@ -12,10 +12,14 @@ services:
     volumes:
      - /app/node_modules
      - ./client:/app
+    networks:
+      - my_network
     
   
   test-ubuntu:
     build: ./ubuntu
+    networks:
+      - my_network
    
   
   api:
@@ -28,12 +32,16 @@ services:
     volumes:
      - /app/node_modules
      - ./server:/app
+    networks:
+      - my_network
   
   mongo:
     image: mongo:3.6.8
     restart: always
     ports:
     - 8081:8081
+    networks:
+      - my_network
     #environment:
       #ME_CONFIG_MONGODB_ADMINUSERNAME: root
       #ME_CONFIG_MONGODB_ADMINPASSWORD: example
@@ -42,8 +50,14 @@ services:
       #MONGO_INITDB_ROOT_USERNAME: root
       #MONGO_INITDB_ROOT_PASSWORD: example
 
-
-
+networks:
+  my_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.25.0.0/16
+          
   #ngo-express:
   #image: mongo-express
   #restart: always
