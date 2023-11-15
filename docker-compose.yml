@@ -10,16 +10,15 @@ services:
     depends_on:
       - api
     volumes:
-     - /app/node_modules
+     - frontend_node_modules:/app/node_modules
      - ./client:/app
     networks:
       - my_network
     
-  
-  test-ubuntu:
-    build: ./ubuntu
-    networks:
-      - my_network
+  #test-ubuntu:
+  #  build: ./ubuntu
+  #  networks:
+  #    - my_network
    
   
   api:
@@ -30,7 +29,7 @@ services:
     depends_on:
       - mongo
     volumes:
-     - /app/node_modules
+     - api_node_modules:/app/node_modules
      - ./server:/app
     networks:
       - my_network
@@ -39,7 +38,9 @@ services:
     image: mongo:3.6.8
     restart: always
     ports:
-    - 8081:8081
+     - 8081:8081
+    volumes:
+     - mongo_data:/data/db
     networks:
       - my_network
     #environment:
@@ -58,6 +59,11 @@ networks:
       config:
         - subnet: 172.25.0.0/16
           
+volumes:
+  mongo_data:
+  frontend_node_modules:  
+  api_node_modules:
+
   #ngo-express:
   #image: mongo-express
   #restart: always
