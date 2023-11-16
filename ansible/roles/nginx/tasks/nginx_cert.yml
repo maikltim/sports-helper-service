@@ -24,3 +24,16 @@
     privatekey_path: /etc/ssl/mycert.key
     provider: selfsigned
   delegate_to: localhost
+
+- name: Копирование SSL-сертификата и закрытого ключа
+  copy:
+    src: /etc/ssl/mycert.crt
+    dest: /etc/nginx/ssl/mycert.crt
+
+- name: Копирование закрытого ключа
+  copy:
+    src: /etc/ssl/mycert.key
+    dest: /etc/nginx/ssl/mycert.key
+    
+  notify:
+     - Restart Nginx

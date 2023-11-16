@@ -1,8 +1,17 @@
+
 server {
-    listen {{ nginx_port }};
+    listen          *:80;
+    rewrite ^ https://$host$request_uri? permanent;
+}
+
+server {
+    listen *:{{ nginx_port }} ssl;
     root /var/www/{{ frontend_name }};
     index index.php index.html;
     server_name {{ frontend_name }} www.{{ frontend_name }};
+    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2; # SSLv3 исключить CVE-2014-3566
+    ssl_certificate	/etc/nginx/ssl/mycert.crt;
+    ssl_certificate_key	/etc/nginx/ssl/mycert.key;
 
     location / {
         try_files $uri /index.html;

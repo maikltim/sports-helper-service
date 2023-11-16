@@ -6,7 +6,6 @@
     owner: nginx
     group: nginx
     mode: "0755"
-  become: true
 
 - name: Copy client files to /var/www/sports-helper
   synchronize:
