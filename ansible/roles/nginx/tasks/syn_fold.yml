@@ -10,17 +10,17 @@
 
 - name: Copy client files to /var/www/sports-helper
   synchronize:
-    src: "../../client/build"
+    src: "../../client/build/"
     dest: "/var/www/sports-helper"
     delete: yes
 
-- name: Set ownership and permissions for www user
+#права на папки 0755 а на файлы 0644 так как umsask 0022
+- name: Set ownership and permissions for nginx user
   file:
     path: "/var/www/{{ frontend_name }}"
     owner: nginx
     group: nginx
-    mode: "0755"
-    become: true
-
+    recurse: yes
+  
   notify:
      - Restart Nginx

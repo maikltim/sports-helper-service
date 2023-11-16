@@ -1,0 +1,34 @@
+- name: (CentOS/RHEL 8) Install dependencies
+  yum:
+    name:
+     - policycoreutils-python-utils
+
+- name: Set SELinux mode to permissive
+  selinux:
+    state: permissive
+    policy: targeted
+
+- name: null audit.log
+  shell: cat /dev/null > /var/log/audit/audit.log
+
+- name: Restart Nginx
+  service:
+    name: nginx
+    state: restarted
+
+- name: Make HTTP GET request
+  uri:
+     url: "{{ site_name }}"
+     method: GET
+
+- name: Pause for 10 seconds
+  pause:
+        seconds: 10
+   
+- name: Create and compile SELinux module
+  shell: "grep nginx /var/log/audit/audit.log | audit2allow -M nginx_custom && semodule -i nginx_custom.pp"
+
+- name: Set SELinux to Enforcing
+  selinux:
+      policy: targeted
+      state: enforcing

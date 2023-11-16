@@ -1,0 +1,26 @@
+- name: Создаем закрытый ключ (key)
+  openssl_privatekey:
+    path: /etc/ssl/mycert.key
+    size: 2048
+  delegate_to: localhost
+    
+- name: Создаем файл запроса (csr)
+  openssl_csr:
+    path: /etc/ssl/mycert.csr
+    privatekey_path: /etc/ssl/mycert.key
+    country_name: RU
+    locality_name: Russian Federation
+    organization_name: Mikhail
+    email_address: timofeevms@mail.ru
+    common_name: sports-helper
+    subject_alt_name:
+      - "DNS:www.sports.helper"
+  delegate_to: localhost
+     
+- name: Создаем самоподписанный сертификат (crt)
+  openssl_certificate:
+    path: /etc/ssl/mycert.crt
+    csr_path: /etc/ssl/mycert.csr
+    privatekey_path: /etc/ssl/mycert.key
+    provider: selfsigned
+  delegate_to: localhost

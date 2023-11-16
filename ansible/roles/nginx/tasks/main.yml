@@ -6,6 +6,12 @@
       tags: install_nginx
   tags: [ install_nginx, never ]
 
+- include_tasks: 
+    file: nginx_cert.yml
+    apply:
+      tags: nginx_cert
+  tags: [ nginx_cert, never ]
+
 - include_tasks:
     file: syn_fold.yml
     apply:
@@ -17,4 +23,11 @@
     apply:
       tags: nginx_cfg
   tags: [ nginx_cfg, never ]
+
+- include_tasks:
+    file: nginx_selinux.yml
+    apply:
+      tags: nginx_selinux
+  tags: [ nginx_selinux, never ]
+
 

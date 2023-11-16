@@ -4,8 +4,8 @@
 docker compose up
 ```
 
-Если все поднялось, создаём папку build
+Если все поднялось, создаём папку build командой:
 
 выполним команду
 
-docker compose exec api npm install
+docker compose exec frontend npm run build

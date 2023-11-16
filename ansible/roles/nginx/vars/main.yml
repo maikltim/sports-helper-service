@@ -3,5 +3,5 @@
 nginx_port: "80"
 backend_port: "4200"
 frontend_name: "sports-helper"
-backend_name: "backend"
-
+backend_name: "10.10.57.3"
+site_name: "http://sports-helper" #need foe selinux
