@@ -1,0 +1,12 @@
+---
+- name: Copy Contents of Local Folder to Remote Server
+  hosts: your_target_host
+  become: true
+
+  tasks:
+    - name: Synchronize local folder contents to remote server
+      ansible.builtin.synchronize:
+        src: ../server/
+        dest: /var/node/sports-helper/
+        recursive: yes
+        delete: yes

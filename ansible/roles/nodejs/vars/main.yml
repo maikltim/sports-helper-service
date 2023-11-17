@@ -1,4 +1,4 @@
 ---
 # vars to change default value
 nodejs_version: "14.x"
-nodejs_package_json_path: ../server/package.json
+nodejs_package_json_path: "/var/node/sports-helper"
