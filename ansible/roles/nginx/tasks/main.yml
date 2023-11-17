@@ -6,12 +6,6 @@
       tags: install_nginx
   tags: [ install_nginx, never ]
 
-- include_tasks: 
-    file: nginx_cert.yml
-    apply:
-      tags: nginx_cert
-  tags: [ nginx_cert, never ]
-
 - include_tasks:
     file: syn_fold.yml
     apply:

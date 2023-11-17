@@ -1,0 +1,7 @@
+---
+- name: Install node
+  hosts: backend1
+  become: yes
+  gather_facts: true
+  roles:  
+    - nodejs

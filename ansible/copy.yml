@@ -1,9 +1,0 @@
----
-- name: Копирование файла с удаленной машины на локальную
-  hosts: mysql-source
-  tasks:
-    - name: Копировать файл с удаленной машины на локальную
-      fetch:
-        src: /home/vagrant/master.sql
-        dest: ../master.sql
-        flat: yes

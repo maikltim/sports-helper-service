@@ -1,7 +1,7 @@
 ---
-# vars file for deploy_apache_web
+# vars file for nginx
 nginx_port: "443"
 backend_port: "4200"
 frontend_name: "sports-helper"
 backend_name: "10.10.57.3"
-site_name: "http://sports-helper" #need foe selinux
+site_name: "https://sports-helper" #need foe selinux

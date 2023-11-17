@@ -9,8 +9,20 @@
     name: nginx
     state: present
 
+- name: mkdir for ssl
+  file:
+    path: "/etc/nginx/ssl"
+    state: directory
+
+- name: Copy certs
+  copy: src={{ item }} dest="/etc/nginx/ssl"
+  loop:
+      - "mycert.crt"
+      - "mycert.key"
+
 - name: Start Nginx service
   service:
     name: nginx
     state: started
     enabled: yes  # Ensure Nginx starts on boot
+

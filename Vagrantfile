@@ -13,9 +13,9 @@ MACHINES = {
         # Указываем IP-адрес для ВМ
         :ip => "192.168.57.2",
   },
-  :backend => {
+  :backend1 => {
         :box_name => "centos/stream8",
-        :vm_name => "backend",
+        :vm_name => "backend1",
         :cpus => 2,
         :memory => 2048,
         :ip => "192.168.57.3",
