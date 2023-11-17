@@ -1,0 +1,6 @@
+- name: Create limited user
+  ansible.builtin.user:
+    name: limited_user
+    comment: "Limited User for Node.js"
+    createhome: no
+    shell: /bin/bash  # или другой предпочитаемый вам shell
