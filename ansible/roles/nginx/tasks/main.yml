@@ -1,27 +1,7 @@
 ---
-# tasks file for VM_WIREGUARD
+# tasks file
 - include_tasks: 
     file: install_nginx.yml
     apply:
       tags: install_nginx
   tags: [ install_nginx, never ]
-
-- include_tasks:
-    file: syn_fold.yml
-    apply:
-      tags: syn_fold
-  tags: [ syn_fold, never ]
-
-- include_tasks:
-    file: nginx_cfg.yml
-    apply:
-      tags: nginx_cfg
-  tags: [ nginx_cfg, never ]
-
-- include_tasks:
-    file: nginx_selinux.yml
-    apply:
-      tags: nginx_selinux
-  tags: [ nginx_selinux, never ]
-
-

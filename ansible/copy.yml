@@ -1,6 +1,6 @@
 ---
 - name: Copy Contents of Local Folder to Remote Server
-  hosts: your_target_host
+  hosts: backend1
   become: true
 
   tasks:
@@ -10,3 +10,8 @@
         dest: /var/node/sports-helper/
         recursive: yes
         delete: yes
+
+
+    - name: Install packages based on package.json.
+      community.general.npm:
+        path: /var/node/sports-helper
