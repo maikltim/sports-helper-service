@@ -1,6 +1,20 @@
+- name: Create limited group
+  ansible.builtin.group:
+    name: node_user
+    state: present
+
 - name: Create limited user
   ansible.builtin.user:
-    name: limited_user
-    comment: "Limited User for Node.js"
-    createhome: no
-    shell: /bin/bash  # или другой предпочитаемый вам shell
+    name: node_user
+    groups: node_user
+    shell: /sbin/nologin
+    create_home: no
+    append: yes
+    comment: "User for nodejs"
+    state: present
+
+
+- name: Render Node.js service template
+  ansible.builtin.template:
+    src: node_service.j2
+    dest: /etc/systemd/system/sports-helper.service

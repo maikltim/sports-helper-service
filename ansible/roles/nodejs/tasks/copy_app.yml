@@ -3,8 +3,8 @@
   ansible.builtin.file:
         path: /var/node/sports-helper
         state: directory
-        owner: node
-        group: node
+        owner: node_user
+        group: node_user
 
 - name: Synchronize local folder contents to remote server
   ansible.builtin.synchronize:
@@ -16,3 +16,11 @@
 - name: Install packages based on package.json.
   community.general.npm:
     path: /var/node/sports-helper
+
+- name: Set ownership and permissions for node user
+  file:
+    path: "/var/node/sports-helper/"
+    owner: node_user
+    group: node_user
+    recurse: yes
+  

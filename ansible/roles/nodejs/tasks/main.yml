@@ -11,3 +11,9 @@
     apply:
       tags: create
   tags: [ create, never ]
+
+- include_tasks: 
+    file: copy_app.yml
+    apply:
+      tags: copy_app
+  tags: [ copy_app, never ]
