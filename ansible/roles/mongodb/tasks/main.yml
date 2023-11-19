@@ -1,2 +1,7 @@
 ---
-# tasks file for mongodb
+# tasks file
+- include_tasks: 
+    file: install_mongo.yml
+    apply:
+      tags: install_mongo
+  tags: [ install_mongo, never ]

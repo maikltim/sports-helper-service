@@ -6,8 +6,15 @@
 - name: Install MongoDB packages
   ansible.builtin.yum:
      name:
-       - mongodb-org-3.6.8
-       - mongodb-org-server-3.6.8
-       - mongodb-org-shell-3.6.8
-       - mongodb-org-mongos-3.6.8
-       - mongodb-org-tools-3.6.8
+       - mongodb-org
+       - mongodb-org-server
+       - mongodb-org-shell
+       - mongodb-org-mongos
+       - mongodb-org-tools
+
+- name: Make sure a service unit is running
+  ansible.builtin.systemd:
+    state: started
+    name: mongod
+    daemon_reload: true
+    enabled: true
