@@ -1,0 +1,13 @@
+- name: create MongoDB repository file
+  ansible.builtin.template:
+    src: mongodb-org.repo.j2
+    dest: /etc/yum.repos.d/mongodb-org-3.6.repo
+
+- name: Install MongoDB packages
+  ansible.builtin.yum:
+     name:
+       - mongodb-org-3.6.8
+       - mongodb-org-server-3.6.8
+       - mongodb-org-shell-3.6.8
+       - mongodb-org-mongos-3.6.8
+       - mongodb-org-tools-3.6.8
