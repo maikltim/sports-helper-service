@@ -13,8 +13,14 @@
     comment: "User for nodejs"
     state: present
 
-
 - name: Render Node.js service template
   ansible.builtin.template:
     src: node_service.j2
     dest: /etc/systemd/system/sports-helper.service
+
+- name: Make sure a service unit is running
+  ansible.builtin.systemd:
+    state: stopped
+    name: sports-helper
+    daemon_reload: true
+    enabled: true

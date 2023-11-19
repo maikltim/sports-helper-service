@@ -16,6 +16,7 @@
 - name: Install packages based on package.json.
   community.general.npm:
     path: /var/node/sports-helper
+    ci: true #use package-lock.json
 
 - name: Set ownership and permissions for node user
   file:
@@ -23,4 +24,6 @@
     owner: node_user
     group: node_user
     recurse: yes
+  notify:
+     - Restart sports-helper
   

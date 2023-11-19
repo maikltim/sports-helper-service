@@ -47,17 +47,16 @@ Vagrant.configure("2") do |config|
       end
 
       # Запуск ansible-playbook
-      if boxconfig[:vm_name] == "frontend"
-       box.vm.provision "ansible" do |ansible|
+      box.vm.provision "ansible" do |ansible|
         ansible.inventory_path = "ansible/hosts"
         ansible.host_key_checking = "false"
-        #ansible.roles_path = "ansible/roles"
-        #ansible.config_file = "ansible/ansible.cfg"  
-        ansible.playbook = "ansible/nginx.yml"
-        ansible.tags = ["install_nginx", "syn_fold", "nginx_cfg", "nginx_selinux"]
-       
-
-       end
+        if boxconfig[:vm_name] == "frontend"
+          ansible.playbook = "ansible/nginx.yml"
+          ansible.tags = ["install_nginx", "syn_fold", "nginx_cfg", "nginx_selinux"]
+        elsif boxconfig[:vm_name] == "backend1"
+          ansible.playbook = "ansible/node.yml"
+          ansible.tags = ["install_node", "create_service", "copy_app"]
+        end
       end
     end
   end
