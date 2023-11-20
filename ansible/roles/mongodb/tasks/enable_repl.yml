@@ -1,21 +1,25 @@
+
+
 - name: Configure primary MongoDB node
   community.mongodb.mongodb_replicaset:
-    login_host: "{{ backend1 }}"
+    login_host: localhost
     login_user: "{{ mongodb_root_user }}"
     login_password: "{{ mongodb_root_password }}"
     replica_set: "{{ replica_set_name }}"
     members:
-      - "{{ backend1 }}:27017"
-      - "{{ backend2 }}:27017"
-  when: inventory_hostname == backend1
+      - "{{ mongo_primary }}:27017"
+      - "{{ mongo_secondary }}:27017"
+    validate: no
+  when: inventory_hostname == "backend1"
 
 - name: Configure secondary MongoDB node
   community.mongodb.mongodb_replicaset:
-    login_host: "{{ backend2 }}"
+    login_host: localhost
     login_user: "{{ mongodb_root_user }}"
     login_password: "{{ mongodb_root_password }}"
     replica_set: "{{ replica_set_name }}"
     members:
-      - "{{ backend1 }}:27017"
-      - "{{ backend2 }}:27017"
-  when: inventory_hostname == backend2
+      - "{{ mongo_primary }}:27017"
+      - "{{ mongo_secondary}}:27017"
+    validate: no
+  when: inventory_hostname == "backend2"

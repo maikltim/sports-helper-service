@@ -61,11 +61,11 @@ Vagrant.configure("2") do |config|
         ansible.host_key_checking = "false"
         if boxconfig[:vm_name] == "backend1"
           ansible.playbook = "ansible/node.yml"
-          ansible.tags = ["install_mongo", "install_node", "create_service", "copy_app"]
+          ansible.tags = ["install_mongo", "enable_auth", "install_node", "create_service", "copy_app"]
 
         elsif boxconfig[:vm_name] == "backend2"
           ansible.playbook = "ansible/node.yml"
-          ansible.tags = ["install_mongo", "install_node", "create_service", "copy_app"]
+          ansible.tags = ["install_mongo", "enable_auth", "install_node", "create_service", "copy_app"]
           
         elsif boxconfig[:vm_name] == "frontend"
           ansible.playbook = "ansible/nginx.yml"

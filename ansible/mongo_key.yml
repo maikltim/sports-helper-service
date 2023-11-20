@@ -1,0 +1,10 @@
+---
+- name: Generate MongoDB key file
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Execute openssl command
+      openssl_privatekey:
+        path: "./roles/mongodb/files/mongo_keyfile"
+        size: 2048

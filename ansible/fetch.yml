@@ -1,0 +1,11 @@
+---
+- name: Fetch MongoDB config file
+  hosts: backend1
+  gather_facts: true
+
+  tasks:
+    - name: Fetch MongoDB config file
+      ansible.builtin.fetch:
+        src: "/etc/mongod.conf"
+        dest: "./mongod.conf"
+        flat: yes

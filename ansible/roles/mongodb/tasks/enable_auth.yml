@@ -1,18 +1,33 @@
-- name: Enable remote connections in MongoDB
-  lineinfile:
-    path: /etc/mongod.conf
-    regexp: '^ *bindIp:.*'
-    line: '  bindIp: 0.0.0.0'
-    state: present
-    backup: yes
+- name: Create directory for mongo key_file
+  ansible.builtin.file:
+        path: /var/lib/mongo/ssl
+        state: directory
+        owner: mongod
+        group: mongod
+        mode: '0700'
+- name: Copy MongoDB secret key file
+  ansible.builtin.copy:
+      src: mongo_keyfile
+      dest: /var/lib/mongo/ssl/mongo_keyfile
+      mode: "0400"
+      owner: mongod
+      group: mongod
 
-- name: Enable authentication in MongoDB
-  lineinfile:
-    path: /etc/mongod.conf
-    line: "security:\n  authorization: enabled"
-    insertafter: "^#security:"
-    state: present
-    backup: yes
+#- name: Enable remote connections in MongoDB
+#  lineinfile:
+#    path: /etc/mongod.conf
+#    regexp: '^ *bindIp:.*'
+#    line: '  bindIp: 0.0.0.0'
+#    state: present
+#    backup: yes
+
+#- name: Enable authentication in MongoDB
+#  lineinfile:
+#    path: /etc/mongod.conf
+#    regexp: '^#security:*'
+#    line: "security:\n  authorization: enabled\n  keyFile: /var/lib/mongo/ssl/mongo_keyfile"
+#    state: present
+#    backup: yes
 
 #- name: Create MongoDB database
 #  mongodb_db:
