@@ -1,7 +1,7 @@
 - name: create MongoDB repository file
   ansible.builtin.template:
     src: mongodb-org.repo.j2
-    dest: /etc/yum.repos.d/mongodb-org-3.6.repo
+    dest: /etc/yum.repos.d/mongodb-org-5.0.repo
 
 - name: Install MongoDB packages
   ansible.builtin.yum:
@@ -11,6 +11,10 @@
        - mongodb-org-shell
        - mongodb-org-mongos
        - mongodb-org-tools
+       - python3-pip
+- name: Install pymongo
+  pip:
+    name: pymongo
   
 - name: Добавить запись в /etc/hosts
   lineinfile:

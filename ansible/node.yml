@@ -1,6 +1,6 @@
 ---
 - name: Install node
-  hosts: backend1
+  hosts: backend_servers
   become: yes
   gather_facts: true
   roles:  

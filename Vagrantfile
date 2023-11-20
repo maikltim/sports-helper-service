@@ -1,6 +1,22 @@
 # Описание параметров ВМ
 MACHINES = {
   # Имя DV "pam"
+  :backend1 => {
+          :box_name => "centos/stream8",
+          :vm_name => "backend1",
+          :cpus => 2,
+          :memory => 2048,
+          :ip => "192.168.57.3",
+  
+    },
+  :backend2 => {
+          :box_name => "centos/stream8",
+          :vm_name => "backend2",
+          :cpus => 2,
+          :memory => 2048,
+          :ip => "192.168.57.4",
+  
+    },
   :frontend => {
         # VM box
         :box_name => "centos/stream8",
@@ -13,14 +29,7 @@ MACHINES = {
         # Указываем IP-адрес для ВМ
         :ip => "192.168.57.2",
   },
-  :backend1 => {
-        :box_name => "centos/stream8",
-        :vm_name => "backend1",
-        :cpus => 2,
-        :memory => 2048,
-        :ip => "192.168.57.3",
-
-  },
+  
   #:barman => {
   #      :box_name => "centos/stream8",
   #      :vm_name => "barman",
@@ -50,12 +59,17 @@ Vagrant.configure("2") do |config|
       box.vm.provision "ansible" do |ansible|
         ansible.inventory_path = "ansible/hosts"
         ansible.host_key_checking = "false"
-        if boxconfig[:vm_name] == "frontend"
-          ansible.playbook = "ansible/nginx.yml"
-          ansible.tags = ["install_nginx", "syn_fold", "nginx_cfg", "nginx_selinux"]
-        elsif boxconfig[:vm_name] == "backend1"
+        if boxconfig[:vm_name] == "backend1"
           ansible.playbook = "ansible/node.yml"
           ansible.tags = ["install_mongo", "install_node", "create_service", "copy_app"]
+
+        elsif boxconfig[:vm_name] == "backend2"
+          ansible.playbook = "ansible/node.yml"
+          ansible.tags = ["install_mongo", "install_node", "create_service", "copy_app"]
+          
+        elsif boxconfig[:vm_name] == "frontend"
+          ansible.playbook = "ansible/nginx.yml"
+          ansible.tags = ["install_nginx", "syn_fold", "nginx_cfg", "nginx_selinux"]
         end
       end
     end

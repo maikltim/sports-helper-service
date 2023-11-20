@@ -5,3 +5,10 @@
     apply:
       tags: install_mongo
   tags: [ install_mongo, never ]
+
+- include_tasks: 
+    file: enable_auth.yml
+    apply:
+      tags: enable_auth
+  tags: [ enable_auth, never ]
+
