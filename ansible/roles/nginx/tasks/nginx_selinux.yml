@@ -2,7 +2,13 @@
   yum:
     name:
      - policycoreutils-python-utils
-
+  
+- name: Set httpd_can_network_connect flag on and keep it persistent across reboots
+  ansible.posix.seboolean:
+    name: httpd_can_network_connect
+    state: true
+    persistent: true
+    
 - name: Set SELinux mode to permissive
   selinux:
     state: permissive
@@ -16,11 +22,20 @@
     name: nginx
     state: restarted
 
-- name: Make HTTP GET request
+- name: Make HTTPS GET request
   uri:
-     url: "{{ site_name }}"
+     url: "{{ item }}"
      method: GET
      validate_certs: no
+  loop:
+     - "{{ site_name }}"
+     - "{{ site_name }}/users"
+  register: http_results
+
+- name: Display HTTP response details
+  debug:
+    var: item
+  loop: "{{ http_results.results }}"
 
 - name: Pause for 10 seconds
   pause:
@@ -28,6 +43,12 @@
    
 - name: Create and compile SELinux module
   shell: "grep nginx /var/log/audit/audit.log | audit2allow -M nginx_custom && semodule -i nginx_custom.pp"
+
+- name: Set httpd_can_network_connect flag on and keep it persistent across reboots
+  ansible.posix.seboolean:
+    name: httpd_can_network_connect
+    state: true
+    persistent: true
 
 - name: Set SELinux to Enforcing
   selinux:

@@ -55,7 +55,7 @@ Vagrant.configure("2") do |config|
           ansible.tags = ["install_nginx", "syn_fold", "nginx_cfg", "nginx_selinux"]
         elsif boxconfig[:vm_name] == "backend1"
           ansible.playbook = "ansible/node.yml"
-          ansible.tags = ["install_node", "create_service", "copy_app"]
+          ansible.tags = ["install_mongo", "install_node", "create_service", "copy_app"]
         end
       end
     end

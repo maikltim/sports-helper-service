@@ -11,6 +11,11 @@
        - mongodb-org-shell
        - mongodb-org-mongos
        - mongodb-org-tools
+  
+- name: Добавить запись в /etc/hosts
+  lineinfile:
+     path: /etc/hosts
+     line: '127.0.0.1 mongo'
 
 - name: Make sure a service unit is running
   ansible.builtin.systemd:
