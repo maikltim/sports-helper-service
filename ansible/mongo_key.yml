@@ -4,7 +4,12 @@
   gather_facts: false
 
   tasks:
-    - name: Execute openssl command
-      openssl_privatekey:
+    - name: Check if key file already exists
+      ansible.builtin.stat:
         path: "./roles/mongodb/files/mongo_keyfile"
-        size: 2048
+      register: keyfile_stat
+
+    - name: Execute openssl command to generate key file
+      ansible.builtin.shell:
+        cmd: "openssl rand -base64 756 > ./roles/mongodb/files/mongo_keyfile"
+      when: keyfile_stat.stat.exists == false

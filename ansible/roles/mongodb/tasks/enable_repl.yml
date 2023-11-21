@@ -5,7 +5,7 @@
     login_host: localhost
     login_user: "{{ mongodb_root_user }}"
     login_password: "{{ mongodb_root_password }}"
-    replica_set: "{{ replica_set_name }}"
+    replica_set: "{{ replicaSetName }}"
     members:
       - "{{ mongo_primary }}:27017"
       - "{{ mongo_secondary }}:27017"
@@ -17,7 +17,7 @@
     login_host: localhost
     login_user: "{{ mongodb_root_user }}"
     login_password: "{{ mongodb_root_password }}"
-    replica_set: "{{ replica_set_name }}"
+    replica_set: "{{ replicaSetName }}"
     members:
       - "{{ mongo_primary }}:27017"
       - "{{ mongo_secondary}}:27017"

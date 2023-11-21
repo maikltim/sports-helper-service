@@ -21,6 +21,18 @@
      path: /etc/hosts
      line: '127.0.0.1 mongo'
 
+- name: Add entry to /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    line: '192.168.57.4 backend2'
+  when: ansible_host == 'backend1'
+
+- name: Add entry to /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    line: '192.168.57.3 backend1'
+  when: ansible_host == 'backend2'
+
 - name: Make sure a service unit is running
   ansible.builtin.systemd:
     state: started
