@@ -16,22 +16,16 @@
   pip:
     name: pymongo
   
-- name: Добавить запись в /etc/hosts
-  lineinfile:
-     path: /etc/hosts
-     line: '127.0.0.1 mongo'
-
-- name: Add entry to /etc/hosts
+- name: Add entries to /etc/hosts
   lineinfile:
     path: /etc/hosts
-    line: '192.168.57.4 backend2'
-  when: ansible_host == 'backend1'
-
-- name: Add entry to /etc/hosts
-  lineinfile:
-    path: /etc/hosts
-    line: '192.168.57.3 backend1'
-  when: ansible_host == 'backend2'
+    line: "{{ item }}"
+    state: present
+  with_items:
+    - "127.0.0.1 mongo"
+    - "192.168.57.3 backend1"
+    - "192.168.57.4 backend2"
+    - "192.168.57.5 backup"
 
 - name: Make sure a service unit is running
   ansible.builtin.systemd:

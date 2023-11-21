@@ -1,0 +1,4 @@
+- name: Add entry to /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    line: '192.168.57.3 {{ backend_name }}'
