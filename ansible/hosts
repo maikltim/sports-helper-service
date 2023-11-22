@@ -2,6 +2,6 @@
 [clients]
 frontend ansible_host=192.168.57.2 ansible_user=vagrant ansible_ssh_private_key_file=../.vagrant/machines/frontend/virtualbox/private_key
 [backend_servers]
-backend1 ansible_host=192.168.57.3 ansible_user=vagrant ansible_ssh_private_key_file=../.vagrant/machines/backend1/virtualbox/private_key
-backend2 ansible_host=192.168.57.4 ansible_user=vagrant ansible_ssh_private_key_file=../.vagrant/machines/backend2/virtualbox/private_key
-backup ansible_host=192.168.57.5 ansible_user=vagrant ansible_ssh_private_key_file=../.vagrant/machines/backup/virtualbox/private_key
+backend1 ansible_host=192.168.57.3 ansible_user=vagrant ansible_ssh_private_key_file=../.vagrant/machines/backend1/virtualbox/private_key priority=10 arbiterOnly=false
+backend2 ansible_host=192.168.57.4 ansible_user=vagrant ansible_ssh_private_key_file=../.vagrant/machines/backend2/virtualbox/private_key priority=5 arbiterOnly=false
+backup ansible_host=192.168.57.5 ansible_user=vagrant ansible_ssh_private_key_file=../.vagrant/machines/backup/virtualbox/private_key priority=2 arbiterOnly=true

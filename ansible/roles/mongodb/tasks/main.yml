@@ -11,6 +11,18 @@
     apply:
       tags: enable_auth
   tags: [ enable_auth, never ]
+  
+- include_tasks: 
+    file: mongo_conf.yml
+    apply:
+      tags: mongo_conf
+  tags: [ mongo_conf, never ]
+
+- include_tasks: 
+    file: mongo_conf.yml
+    apply:
+      tags: mongo_conf
+  tags: [ mongo_conf, never ]
 
 - include_tasks: 
     file: enable_repl.yml
@@ -18,10 +30,4 @@
       tags: enable_repl
   tags: [ enable_repl, never ]
 
-
-- include_tasks: 
-    file: mongo_conf.yml
-    apply:
-      tags: mongo_conf
-  tags: [ mongo_conf, never ]
 

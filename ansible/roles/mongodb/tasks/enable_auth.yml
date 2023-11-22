@@ -41,6 +41,7 @@
     name: "{{ mongodb_root_user }}"
     password: "{{ mongodb_root_password }}"
     roles: "root"
+  ignore_errors: true
 
 - name: Create MongoDB administrative user siteUserAdmin
   mongodb_user:
@@ -53,6 +54,7 @@
     roles:
       - { db: "admin", role: "readWrite" }
       - { db: "{{ database_name }}", role: "readWrite" }
+  ignore_errors: true
 
 - name: Create MongoDB backup user siteUserBackup
   mongodb_user:
@@ -64,6 +66,6 @@
     password: "{{ mongodb_backup_password }}"
     roles:
       - { db: "admin", role: "backup" }
-  
+  ignore_errors: true
   notify:
      - Restart MongoDB

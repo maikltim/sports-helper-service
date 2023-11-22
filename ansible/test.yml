@@ -1,0 +1,11 @@
+---
+- name: Get information
+  hosts: localhost
+  become: false
+  gather_facts: true
+
+  tasks: 
+    - name: Create file to initiate replica set
+      template: 
+       src: ./roles/mongodb/templates/replSetInit.j2
+       dest: ./replSetInit.js

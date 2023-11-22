@@ -21,4 +21,6 @@ ansible-playbook nginx_cert.yml --ask-become
 
 Сервер с бэкапами также будет являться арбитром
 
-backup
+backend1 - база mongo, приложение node
+backend2 - база mongo, приложение node
+backup база mongo репликация
