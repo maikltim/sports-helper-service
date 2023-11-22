@@ -14,7 +14,8 @@ services:
      - ./client:/app
     networks:
       - my_network
-    
+
+  #test container  
   #test-ubuntu:
   #  build: ./ubuntu
   #  networks:
