@@ -63,8 +63,28 @@ ansible-playbook local.yml --ask-become
 │   └── src
 ```
 
-package.json - основной json файл для установки пакетов для Node
-package-lock.json json файл для фиксации версий зависимостей.
+- package.json - основной json файл для установки пакетов для node. Также в этом файле указаны параметры запуска нашего приложения.
+
+```js
+ "proxy": "http://api:4200",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  }
+```
+
+proxy": "<http://api:4200>", `api` это имя контейнера с бэкендом
+"start": "react-scripts start", скрипт старта приложения в dev среде. Располагаются в папке node_modules ( в контейнере )
+"build": "react-scripts build", скрипт для создания папки build для prod среды.
+
+- package-lock.json json файл для фиксации версий зависимостей.
+- папка build это рабочий код приложения, папка создаётся при запуске контейнера frontend. ( docker compose up).
+  данна папка копируется на сервер nginx.
+- папка node modules пустая папка, эта папка куда инсталируются пакеты npm ( у нас она существует внутри контейнера frontend )
+- Dockerfile - файл для создания контейнера frontend. Также создаёт build папку проекта.
+ [Docker](./client/Dockerfile)
 
 Сервер с бэкапами также будет являться арбитром
 
