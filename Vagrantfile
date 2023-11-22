@@ -72,12 +72,12 @@ Vagrant.configure("2") do |config|
           ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "install_node", "create_service", "copy_app"]
 
         elsif boxconfig[:vm_name] == "backup"
-        ansible.playbook = "ansible/node.yml"
-        ansible.tags = ["install_mongo", "enable_auth", "mongo_conf"]
+          ansible.playbook = "ansible/node.yml"
+          ansible.tags = ["install_mongo", "enable_auth", "mongo_conf"]
 
         elsif boxconfig[:vm_name] == "backend1"
           ansible.playbook = "ansible/node.yml"
-          ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "enable_repl" "install_node", "create_service", "copy_app"]
+          ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "enable_repl", "install_node", "create_service", "copy_app"]
 
         elsif boxconfig[:vm_name] == "frontend"
           ansible.playbook = "ansible/nginx.yml"

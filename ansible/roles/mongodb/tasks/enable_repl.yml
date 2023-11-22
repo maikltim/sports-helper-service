@@ -1,7 +1,7 @@
-- name: Fix add arbitr to mongo
-  shell: |
-       mongo -u "{{ mongodb_root_user }}" -p {{ mongodb_root_password }} --eval 'db.adminCommand({"setDefaultRWConcern": 1, "defaultWriteConcern": {"w": 1}})'
-  when: inventory_hostname == "backend1"
+#- name: Fix add arbitr to mongo
+#  shell: |
+#       mongo -u {{ mongodb_root_user }} -p {{ mongodb_root_password }} --eval 'db.adminCommand({"setDefaultRWConcern": 1, "defaultWriteConcern": {"w": 1}})'
+#  when: inventory_hostname == "backend1"
 
 - name: Create file to initiate replica set
   template: 
@@ -9,6 +9,6 @@
     dest: ./replSetInit.js
   when: inventory_hostname == "backend1"
 
-- name: Initialize the replica set
-  command: mongo -u "{{ mongodb_root_user }}" -p {{ mongodb_root_password }} ./replSetInit.js
-  when: inventory_hostname == "backend1"
+#- name: Initialize the replica set
+#  command: mongo -u "{{ mongodb_root_user }}" -p {{ mongodb_root_password }} ./replSetInit.js
+#  when: inventory_hostname == "backend1"

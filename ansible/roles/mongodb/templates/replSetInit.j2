@@ -1,6 +1,6 @@
 rs.initiate()
-
 {% for host in groups['backend_servers'] %}
+
 rs.add({ 
   host: "{{host}}", 
   priority: {{hostvars[host]['priority']}},
