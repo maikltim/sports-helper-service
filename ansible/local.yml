@@ -1,0 +1,14 @@
+---
+- name: Prepare localhost
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Add hosts to local file /etc/hosts
+      include_playbook: ./local_playbooks/add_hosts.yml.yml
+
+    - name: Generate mongo secret key for replication
+      include_playbook: ./local_playbooks/mongo_key.yml
+
+    - name: Generate nginx self signed certificate
+      include_playbook: ./local_playbooks/nginx_cert.yml

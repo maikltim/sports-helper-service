@@ -1,16 +1,17 @@
 - name: create certs
   hosts: localhost
+  gather_facts: false
   become: yes
   tasks:
   - name: Создаем закрытый ключ (key)
     openssl_privatekey:
-      path: ./roles/nginx/files/mycert.key
+      path: ../roles/nginx/files/mycert.key
       size: 2048
     
   - name: Создаем файл запроса (csr)
     openssl_csr:
-      path: ./roles/nginx/files/mycert.csr
-      privatekey_path: ./roles/nginx/files/mycert.key
+      path: ../roles/nginx/files/mycert.csr
+      privatekey_path: ../roles/nginx/files/mycert.key
       country_name: RU
       locality_name: Russian Federation
       organization_name: Mikhail
@@ -21,17 +22,17 @@
      
   - name: Создаем самоподписанный сертификат (crt)
     openssl_certificate:
-      path: ./roles/nginx/files/mycert.crt
-      csr_path: ./roles/nginx/files/mycert.csr
-      privatekey_path: ./roles/nginx/files/mycert.key
+      path: ../roles/nginx/files/mycert.crt
+      csr_path: ../roles/nginx/files/mycert.csr
+      privatekey_path: ../roles/nginx/files/mycert.key
       provider: selfsigned
 
   - name: Set permissions для закрытого ключа
     ansible.builtin.file:
-      path: "./roles/nginx/files/mycert.key"
+      path: "../roles/nginx/files/mycert.key"
       mode: "0644"
 
   - name: Удаяляем файл запроса
     ansible.builtin.file:
-      path: "./roles/nginx/files/mycert.csr"
+      path: "../roles/nginx/files/mycert.csr"
       state: absent     
