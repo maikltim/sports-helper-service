@@ -92,6 +92,7 @@ proxy": "<http://api:4200>", `api` это имя контейнера с бэк�
 
 Папка server:
 
+```txt
 ├── server
 │   ├── controllers
 │   ├── core
@@ -105,6 +106,7 @@ proxy": "<http://api:4200>", `api` это имя контейнера с бэк�
 │   ├── utils
 │   └── yarn.lock
 |   └── .env
+```
 
 - package.json основной файл для запуска api backend.
 
@@ -122,3 +124,5 @@ proxy": "<http://api:4200>", `api` это имя контейнера с бэк�
 backend1 - база mongo, приложение node
 backend2 - база mongo, приложение node
 backup база mongo репликация
+
+ansible-playbook nginx.yml --tags=nginx_cfg -e backend_name="backend2"

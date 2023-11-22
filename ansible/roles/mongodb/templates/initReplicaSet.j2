@@ -1,0 +1,15 @@
+// Инициализация репликации
+rs.initiate({
+  _id: "{{ replicaSetName }}",
+  members: [
+    {
+      _id: 0,
+      host: "{{ inventory_hostname }}:27017",
+      priority: {{hostvars[mongo_primary]['priority']}},
+    }
+  ]
+});
+
+
+// Вывод статуса репликации
+printjson(rs.status());

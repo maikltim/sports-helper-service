@@ -11,7 +11,7 @@
     apply:
       tags: enable_auth
   tags: [ enable_auth, never ]
-  
+
 - include_tasks: 
     file: mongo_conf.yml
     apply:

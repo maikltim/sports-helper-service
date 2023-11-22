@@ -1,14 +1,18 @@
-#- name: Fix add arbitr to mongo
-#  shell: |
-#       mongo -u {{ mongodb_root_user }} -p {{ mongodb_root_password }} --eval 'db.adminCommand({"setDefaultRWConcern": 1, "defaultWriteConcern": {"w": 1}})'
-#  when: inventory_hostname == "backend1"
+- name: MongoDB Replica Set Configuration
+  block:
+    - name: Create file to initiate replica set
+      template:
+        src: initReplicaSet.j2
+        dest: ./initReplicaSet.js
 
-- name: Create file to initiate replica set
-  template: 
-    src: replSetInit.j2
-    dest: ./replSetInit.js
-  when: inventory_hostname == "backend1"
+    - name: Initialize the replica set
+      command: mongo -u "{{ mongodb_root_user }}" -p {{ mongodb_root_password }} ./replSetInit.js
 
-#- name: Initialize the replica set
-#  command: mongo -u "{{ mongodb_root_user }}" -p {{ mongodb_root_password }} ./replSetInit.js
-#  when: inventory_hostname == "backend1"
+    - name: Create file to add members
+      template:
+        src: repladd.j2
+        dest: ./repladd.js
+
+    - name: Add members
+      command: mongo -u "{{ mongodb_root_user }}" -p {{ mongodb_root_password }} ./repladd.js
+  when: "'mongo_primary' in group_names"

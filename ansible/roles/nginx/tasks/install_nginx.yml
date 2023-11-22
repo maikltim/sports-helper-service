@@ -1,9 +1,13 @@
 # task  for install nginx
 
-- name: Add entry to /etc/hosts
+- name: Add entries to /etc/hosts
   lineinfile:
     path: /etc/hosts
-    line: '192.168.57.3 {{ backend_name }}'
+    line: "{{ item }}"
+    state: present
+  with_items:
+    - "192.168.57.3 backend1"
+    - "192.168.57.4 backend2"
 
 - name: Install epel-release repository (for extra packages)
   yum:
