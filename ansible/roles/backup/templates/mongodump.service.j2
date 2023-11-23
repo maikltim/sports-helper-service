@@ -1,0 +1,11 @@
+[Unit]
+Description=MongoDB Backup Service
+After=network.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/default/mongodump_env
+ExecStart=/usr/local/bin/mongodump_script.sh
+
+[Install]
+WantedBy=multi-user.target

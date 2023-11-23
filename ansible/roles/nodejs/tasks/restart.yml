@@ -1,0 +1,4 @@
+- name: Restart sports-helper
+  service:
+    name: sports-helper
+    state: restarted

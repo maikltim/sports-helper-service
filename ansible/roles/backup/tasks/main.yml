@@ -1,0 +1,49 @@
+---
+- name: MongoDB Backups
+  block:
+  - name: Create backup directory
+    file:
+      path: /var/backups/mongobackups
+      state: directory
+      mode: '0755'
+
+  - name: Create backup script
+    template:
+      src: mongodump_script.sh.j2
+      dest: /usr/local/bin/mongodump_script.sh
+      mode: '0755'
+ 
+  - name: Create secrets file
+    template:
+      src: mongodump_env.j2
+      dest: /etc/default/mongodump_env
+      mode: '0600'
+
+  - name: Create systemd service
+    template:
+      src: mongodump.service.j2
+      dest: /etc/systemd/system/mongodump.service
+      mode: '0644'
+
+  - name: Create systemd timer
+    template:
+      src: mongodump.timer.j2
+      dest: /etc/systemd/system/mongodump.timer
+      mode: '0644'
+
+  - name: Start and enable mongodump timer
+    systemd:
+      name: mongodump.timer
+      state: started
+      enabled: yes
+      
+  - name: Check if backup exists
+    stat:
+      path: "/var/backups/mongobackups/"
+    register: backup_status
+
+  - name: Debug backup status
+    debug:
+      var: backup_status.stat.exists
+
+  when: "'backup_servers' in group_names"

@@ -1,0 +1,6 @@
+---
+# vars file for backup
+backup_base: "sportHelper"
+backup_host: "backend2"
+mongodb_backup_user: "backupuser"
+mongodb_backup_password: "backupuser123"
