@@ -18,6 +18,10 @@ docker compose exec frontend npm run build
 
 Проверим корректность работы зайдя на http://localhost:3000
 
+```bash
+docker compose down -v
+```
+
 Подготовим локальный компьютер запустив local.yml
 
 ```bash
@@ -123,6 +127,63 @@ proxy": "<http://api:4200>", `api` это имя контейнера с бэк�
 - Dockerfile - файл для создания контейнера api.
    [Dockerfile](./server/Dockerfile)
 
+- server/core/db.ts - содержит параметры подключения backend к базе данных mongo.
+
+### 2.3 Mongo
+
+Для работы Backend необходим сервис mongodb не страше 5 ой версии.
+
+### 2.4 Запуск сервиса
+
+Сервис в dev режиме запускается с помощью docker compose.
+
+```yml
+version: '3.8'
+services:
+  frontend:
+    build: ./client
+    restart: always
+    ports:
+      - '3000:3000'
+    depends_on:
+      - api
+    volumes:
+     - frontend_node_modules:/app/node_modules
+     - ./client:/app
+    networks:
+      - my_network
+  api:
+    build: ./server
+    restart: always
+    ports:
+      - '4200:4200'
+    depends_on:
+      - mongo
+    volumes:
+     - api_node_modules:/app/node_modules
+     - ./server:/app
+    networks:
+      - my_network
+  mongo:
+    image: mongo:5.0.23-rc0
+    restart: always
+    ports:
+     - 8081:8081
+    volumes:
+     - mongo_data:/data/db
+    networks:
+      - my_network
+  my_network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.25.0.0/16        
+volumes:
+  mongo_data:
+  frontend_node_modules:  
+  api_node_modules:
+```
 
 Сервер с бэкапами также будет являться арбитром
 
