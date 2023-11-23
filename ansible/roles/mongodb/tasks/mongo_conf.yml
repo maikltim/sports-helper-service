@@ -4,3 +4,10 @@
     dest: /etc/mongod.conf
   notify:
      - Restart MongoDB
+  
+- name: Restart MongoDB
+  service:
+    name: mongod
+    state: restarted
+  #выполнить сразу handler
+  meta: flush_handlers
