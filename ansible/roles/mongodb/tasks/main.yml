@@ -19,12 +19,6 @@
   tags: [ mongo_conf, never ]
 
 - include_tasks: 
-    file: mongo_conf.yml
-    apply:
-      tags: mongo_conf
-  tags: [ mongo_conf, never ]
-
-- include_tasks: 
     file: enable_repl.yml
     apply:
       tags: enable_repl

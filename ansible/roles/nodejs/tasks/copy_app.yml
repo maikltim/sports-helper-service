@@ -24,6 +24,15 @@
     owner: node_user
     group: node_user
     recurse: yes
+
+- name: Create .env for service
+  ansible.builtin.template:
+    src: env.j2
+    dest: "/var/node/sports-helper/.env"
+    owner: node_user
+    group: node_user
+    mode: "0400"
+
   notify:
      - Restart sports-helper
   
