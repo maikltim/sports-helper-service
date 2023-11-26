@@ -73,7 +73,7 @@ Vagrant.configure("2") do |config|
 
         elsif boxconfig[:vm_name] == "backup"
           ansible.playbook = "ansible/node.yml"
-          ansible.tags = ["install_mongo", "enable_auth", "mongo_conf"]
+          ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "backup"]
 
         elsif boxconfig[:vm_name] == "backend1"
           ansible.playbook = "ansible/node.yml"
