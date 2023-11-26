@@ -1,5 +1,6 @@
 [Unit]
 Description=MongoDB Backup Timer
+Requires=mongodump.service
 
 [Timer]
 OnCalendar=*-*-* 23:00:00

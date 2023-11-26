@@ -24,4 +24,10 @@
       tags: enable_repl
   tags: [ enable_repl, never ]
 
+- include_tasks: 
+    file: show_repl.yml
+    apply:
+      tags: show_repl
+  tags: [ show_repl, never ]
+
 

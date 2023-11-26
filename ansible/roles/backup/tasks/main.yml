@@ -36,14 +36,19 @@
       name: mongodump.timer
       state: started
       enabled: yes
+
+  - name: Create backup
+    systemd:
+       name: mongodump.service
+       state: started
       
   - name: Check if backup exists
-    stat:
-      path: "/var/backups/mongobackups/"
+    ansible.builtin.shell:
+      cmd: "ls /var/backups/mongobackups/"
     register: backup_status
 
   - name: Debug backup status
     debug:
-      var: backup_status.stat.exists
+      var: backup_status.stdout_lines
 
   when: "'backup_servers' in group_names"
