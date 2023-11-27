@@ -1,0 +1,20 @@
+[Unit]
+Description=Prometheus service 
+After=network.target 
+
+[Service]
+User=prometheus
+Group=prometheus 
+Type=simple
+ExacStart=/usr/local/bin/prometheus \
+--config.file /etc/prometheus/prometheus.yml \
+--storage.tsdb.path /var/lib/prometheus/ \
+--web.console.templates=/etc/prometheus/prometheus/consoles \
+--web.listen-address=192.168.11.160:9090 \
+--web.console.libraries=/etc/prometheus/console_libraries 
+ExecReload=/bin/kill -HUP $MAINPID 
+Restart=on-failure 
+
+
+[Install]
+WantedBy=multi-user.target 

@@ -1,0 +1,9 @@
+- name: Deploy node_exporter service 
+  hosts: node_exporter
+  gateher_facts: false 
+  become: true 
+  roles:
+    - role: node_exporter
+      state: present 
+
+      

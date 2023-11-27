@@ -1,0 +1,5 @@
+---
+# handlers file for prometheus
+- name: systemd reload 
+  systemd:
+    deamon_reload: yes 
