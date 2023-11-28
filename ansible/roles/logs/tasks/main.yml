@@ -1,0 +1,11 @@
+---
+# tasks file for logs
+- name: Установка часового пояса Moscow
+  community.general.timezone:
+    name: Europe/Moscow
+
+- include_tasks: 
+    file: rsyslog-srv.yml
+    apply:
+      tags: rsyslog-srv
+  tags: [ rsyslog-srv, never ]

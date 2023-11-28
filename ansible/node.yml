@@ -3,7 +3,8 @@
   hosts: backend_servers
   become: yes
   gather_facts: true
-  roles:  
+  roles:
+    - logs
     - mongodb
     - nodejs
     - backup

@@ -3,5 +3,6 @@
   hosts: frontend
   become: yes
   gather_facts: true
-  roles:  
+  roles:
+    - logs
     - nginx
