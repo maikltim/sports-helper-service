@@ -4,3 +4,4 @@
     dest: /etc/rsyslog.conf
   notify:
    - Restart Rsyslog
+  when: "'log_servers' in group_names"
