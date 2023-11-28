@@ -1,6 +1,6 @@
 ---
 - name: Fetch MongoDB config file
-  hosts: backup
+  hosts: backend1
   gather_facts: true
 
   tasks:
