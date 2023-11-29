@@ -1,7 +1,14 @@
 # Описание параметров ВМ
 MACHINES = {
   # Имя DV "pam"
-  
+  :monitoring => {
+          :box_name => "centos/stream7",
+          :vm_name => "monitoring",
+          :cpus => 2,
+          :memory => 4096,
+          :ip => "192.168.57.6",
+    },
+
   :backend2 => {
           :box_name => "centos/stream8",
           :vm_name => "backend2",
@@ -36,15 +43,6 @@ MACHINES = {
         # Указываем IP-адрес для ВМ
         :ip => "192.168.57.2",
   },
-  
-  #:barman => {
-  #      :box_name => "centos/stream8",
-  #      :vm_name => "barman",
-  #      :cpus => 2,
-  #      :memory => 2048,
-  #      :ip => "192.168.57.13",
-#
-  #},
 
 }
 
@@ -66,8 +64,12 @@ Vagrant.configure("2") do |config|
       box.vm.provision "ansible" do |ansible|
         ansible.inventory_path = "ansible/hosts"
         ansible.host_key_checking = "false"
+
+        if boxconfig[:vm_name] == "monitoring"
+         ansible.playbook = "ansible/node.yml"
+         #ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "backup", "rsyslog-srv"]
         
-        if boxconfig[:vm_name] == "backend2"
+        elsif boxconfig[:vm_name] == "backend2"
           ansible.playbook = "ansible/node.yml"
           ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "install_node", "create_service", "copy_app", "rsyslog-client"]
 
