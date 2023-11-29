@@ -9,3 +9,9 @@
     apply:
       tags: rsyslog-srv
   tags: [ rsyslog-srv, never ]
+
+- include_tasks: 
+    file: rsyslog-client.yml
+    apply:
+      tags: rsyslog-client
+  tags: [ rsyslog-client, never ]

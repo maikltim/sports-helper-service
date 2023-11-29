@@ -5,3 +5,4 @@ backend_port: "4200"
 frontend_name: "sports-helper"
 backend_name: "backend1"
 site_name: "https://sports-helper" #need foe selinux
+log_server: "backup"

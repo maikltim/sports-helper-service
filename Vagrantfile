@@ -69,19 +69,19 @@ Vagrant.configure("2") do |config|
         
         if boxconfig[:vm_name] == "backend2"
           ansible.playbook = "ansible/node.yml"
-          ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "install_node", "create_service", "copy_app"]
+          ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "install_node", "create_service", "copy_app", "rsyslog-client"]
 
         elsif boxconfig[:vm_name] == "backup"
           ansible.playbook = "ansible/node.yml"
-          ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "backup"]
+          ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "backup", "rsyslog-srv"]
 
         elsif boxconfig[:vm_name] == "backend1"
           ansible.playbook = "ansible/node.yml"
-          ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "enable_repl", "install_node", "create_service", "copy_app"]
+          ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "enable_repl", "install_node", "create_service", "copy_app", "rsyslog-client"]
 
         elsif boxconfig[:vm_name] == "frontend"
           ansible.playbook = "ansible/nginx.yml"
-          ansible.tags = ["install_nginx", "syn_fold", "nginx_cfg", "nginx_selinux"]
+          ansible.tags = ["install_nginx", "syn_fold", "nginx_cfg", "nginx_selinux", "rsyslog-client"]
         end
       end
     end
