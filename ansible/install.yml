@@ -1,11 +1,12 @@
 ---
-- name: Install node
-  hosts: backend_servers
+- name: Install roles
+  hosts: all
   become: yes
   gather_facts: true
   roles:
     - monitoring
     - logs
+    - nginx
     - mongodb
     - nodejs
     - backup

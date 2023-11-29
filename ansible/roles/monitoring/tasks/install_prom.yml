@@ -23,7 +23,7 @@
     - /var/lib/prometheus
 
 - name: Download And Unzipped Prometheus 
-  unarchvive:
+  unarchive:
     src: https://github.com/prometheus/prometheus/releases/download/v2.46.0/prometheus-2.46.0.linux-amd64.tar.gz
     dest: /tmp/prometheus 
     creates: /tmp/prometheus/prometheus-2.46.0.linux-amd6

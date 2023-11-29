@@ -21,3 +21,6 @@ backup ansible_host=192.168.57.5 ansible_user=vagrant ansible_ssh_private_key_fi
 
 [log_servers]
 backup ansible_host=192.168.57.5 ansible_user=vagrant ansible_ssh_private_key_file=../.vagrant/machines/backup/virtualbox/private_key
+
+[monitoring]
+monitoring ansible_host=192.168.57.6 ansible_user=vagrant ansible_ssh_private_key_file=../.vagrant/machines/monitoring/virtualbox/private_key

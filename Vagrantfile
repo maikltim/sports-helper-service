@@ -2,7 +2,7 @@
 MACHINES = {
   # Имя DV "pam"
   :monitoring => {
-          :box_name => "centos/stream7",
+          :box_name => "centos/7",
           :vm_name => "monitoring",
           :cpus => 2,
           :memory => 4096,
@@ -64,25 +64,26 @@ Vagrant.configure("2") do |config|
       box.vm.provision "ansible" do |ansible|
         ansible.inventory_path = "ansible/hosts"
         ansible.host_key_checking = "false"
+        ansible.playbook = "ansible/install.yml"
 
         if boxconfig[:vm_name] == "monitoring"
-         ansible.playbook = "ansible/node.yml"
-         #ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "backup", "rsyslog-srv"]
+         #ansible.playbook = "ansible/node.yml"
+         ansible.tags = ["install_prom", "rsyslog-client"]
         
         elsif boxconfig[:vm_name] == "backend2"
-          ansible.playbook = "ansible/node.yml"
+          #ansible.playbook = "ansible/node.yml"
           ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "install_node", "create_service", "copy_app", "rsyslog-client"]
 
         elsif boxconfig[:vm_name] == "backup"
-          ansible.playbook = "ansible/node.yml"
+          #ansible.playbook = "ansible/node.yml"
           ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "backup", "rsyslog-srv"]
 
         elsif boxconfig[:vm_name] == "backend1"
-          ansible.playbook = "ansible/node.yml"
+          #ansible.playbook = "ansible/node.yml"
           ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "enable_repl", "install_node", "create_service", "copy_app", "rsyslog-client"]
 
         elsif boxconfig[:vm_name] == "frontend"
-          ansible.playbook = "ansible/nginx.yml"
+          #ansible.playbook = "ansible/nginx.yml"
           ansible.tags = ["install_nginx", "syn_fold", "nginx_cfg", "nginx_selinux", "rsyslog-client"]
         end
       end
