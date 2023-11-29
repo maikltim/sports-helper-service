@@ -1,15 +1,15 @@
 ---
+- name: Create Prometheus group
+  group:
+    name: prometheus
+    state: present
+
 - name: Create Prometheus user
   user:
     name: prometheus
     shell: /bin/false
     createhome: no
     groups: prometheus
-
-- name: Create Prometheus group
-  group:
-    name: prometheus
-    state: present
 
 - name: Create Prometheus directories
   file:
@@ -25,24 +25,27 @@
 - name: Download And Unzipped Prometheus 
   unarchive:
     src: https://github.com/prometheus/prometheus/releases/download/v2.46.0/prometheus-2.46.0.linux-amd64.tar.gz
-    dest: /tmp/prometheus 
-    creates: /tmp/prometheus/prometheus-2.46.0.linux-amd6
+    dest: /tmp
+    creates: /tmp/prometheus-2.46.0.linux-amd64
     remote_src: yes 
 
 - name: Copy Bin Files From Unzipped to Prometheus
   copy:
-    src: /tmp/prometheus/prometheus-2.46.0.linux-amd6{{ item }}
+    src: /tmp/prometheus-2.46.0.linux-amd64/{{ item }}
     dest: /usr/local/bin 
     mode: 0755
     owner: prometheus
     group: prometheus
+    remote_src: yes 
   loop: [ 'prometheus', 'promtool' ]
 
 - name: Copy Conf Files From Unzipped to Prometheus 
   copy:
-    src: /tmp/prometheus/prometheus-2.46.0.linux-amd6{{ item }}
+    src: /tmp/prometheus-2.46.0.linux-amd64/{{ item }}
     dest: /etc/prometheus 
     mode: 0755
     owner: prometheus
     group: prometheus
+    remote_src: yes 
   loop: [ 'console_libraries', 'consoles', 'prometheus.yml' ]
+  
