@@ -4,6 +4,17 @@
   community.general.timezone:
     name: Europe/Moscow
 
+- name: Install Chrony
+  yum:
+    name: chrony
+    state: present
+
+- name: Enable Chrony service
+  systemd:
+    name: chronyd
+    enabled: yes
+    state: started
+
 - include_tasks: 
     file: rsyslog-srv.yml
     apply:
@@ -15,3 +26,9 @@
     apply:
       tags: rsyslog-client
   tags: [ rsyslog-client, never ]
+
+- include_tasks: 
+    file: check-logs.yml
+    apply:
+      tags: check-logs
+  tags: [ check-logs, never ]
