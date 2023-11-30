@@ -19,6 +19,12 @@
   tags: [ install_grafana, never ]
 
 - include_tasks: 
+    file: settings_grafana.yml
+    apply:
+      tags: settings_grafana
+  tags: [ settings_grafana, never ]
+
+- include_tasks: 
     file: install_node_exp.yml
     apply:
       tags: install_node_exp

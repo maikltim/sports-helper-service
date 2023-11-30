@@ -1,11 +1,11 @@
 ---
 - name: Fetch MongoDB config file
-  hosts: backend1
+  hosts: all
   gather_facts: true
-
+  become: true
   tasks:
-    - name: Fetch rsyslog config file
+    - name: Fetch grafana file
       ansible.builtin.fetch:
-        src: "/etc/rsyslog.conf"
-        dest: "./rsyslog.j2"
+        src: "/etc/grafana/grafana.ini"
+        dest: "./grafana.ini"
         flat: yes

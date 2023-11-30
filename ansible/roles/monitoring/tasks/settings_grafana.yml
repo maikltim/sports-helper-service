@@ -1,0 +1,11 @@
+- name: Add Prometheus Data Source
+  grafana_datasource:
+    name: Prometheus4
+    ds_type: prometheus
+    ds_url: http://monitoring:9100
+    url: http://monitoring:3000
+    #grafana_user: "admin"
+    #grafana_password: "admin"
+    #access: proxy
+    tls_skip_verify: true
+  ignore_errors: true  # Игнорировать ошибку, если источник данных уже существует
