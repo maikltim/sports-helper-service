@@ -1,0 +1,36 @@
+- name: Install EPEL repository
+  yum:
+    name: epel-release
+    state: present
+
+- name: Add Grafana repository
+  yum_repository:
+    name: grafana
+    description: Grafana Stable
+    baseurl: https://packages.grafana.com/oss/rpm
+    gpgcheck: 1
+    gpgkey: https://packages.grafana.com/gpg.key
+    enabled: 1
+  when: ansible_distribution_major_version == "7"
+
+- name: Install grafana
+  yum:
+    name: grafana
+    state: latest
+
+- name: Enable grafana service
+  systemd:
+    name: grafana-server
+    enabled: yes
+    masked: no
+
+- name: Start grafana service
+  systemd:
+    name: grafana-server
+    state: started
+
+#- name: Configuration file
+#  template:
+#    src: grafana.ini.j2
+#    dest: /etc/grafana/grafana.ini
+#  notify: Restart grafana
