@@ -5,3 +5,28 @@ scrape_configs:
   scrape_interval: 5s
   static_configs:
    - targets: ['localhost:9090']
+
+- job_name: 'node_exporter_localhost'
+  scrape_interval: 5s
+  static_configs:
+    - targets: ['localhost:9100']
+
+- job_name: 'node_exporter_frontend'
+  scrape_interval: 5s
+  static_configs:
+    - targets: ['frontend:9100']
+
+- job_name: 'node_exporter_backend1'
+  scrape_interval: 5s
+  static_configs:
+    - targets: ['backend1:9100']
+
+- job_name: 'node_exporter_backend2'
+  scrape_interval: 5s
+  static_configs:
+    - targets: ['backend2:9100']
+
+- job_name: 'node_exporter_backup'
+  scrape_interval: 5s
+  static_configs:
+    - targets: ['backup:9100']

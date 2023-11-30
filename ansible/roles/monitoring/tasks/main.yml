@@ -7,7 +7,7 @@
   tags: [ install_prom, never ]
 
 - include_tasks: 
-    file: prom_cfg.yml
+    file: srv_prom_cfg.yml
     apply:
       tags: srv_prom_cfg
   tags: [ srv_prom_cfg, never ]
