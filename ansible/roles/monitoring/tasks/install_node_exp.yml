@@ -1,0 +1,18 @@
+- name: Create nodeusr group
+  group:
+    name: nodeusr
+    state: present
+
+- name: Create nodeusr user
+  user:
+    name: nodeusr
+    shell: /bin/false
+    createhome: no
+    groups: nodeusr
+
+- name: Download And Unzipped Node Exporter
+  unarchive:
+    src: https://github.com/prometheus/node_exporter/releases/download/v1.5.0/node_exporter-1.5.0.linux-amd64.tar.gz
+    dest: /tmp
+    creates: /tmp/node_exporter-1.5.0.linux-amd64
+    remote_src: yes 

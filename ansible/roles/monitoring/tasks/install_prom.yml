@@ -64,6 +64,8 @@
   template: 
      src: prometheus_cfg.j2 
      dest: /etc/prometheus/prometheus.yml
+     owner: prometheus
+     group: prometheus
   
 - name: Render prometheus service template
   ansible.builtin.template:
