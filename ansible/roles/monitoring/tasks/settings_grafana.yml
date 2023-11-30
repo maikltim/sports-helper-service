@@ -2,7 +2,7 @@
   grafana_datasource:
     name: Prometheus4
     ds_type: prometheus
-    ds_url: http://monitoring:9100
+    ds_url: http://monitoring:9090
     url: http://monitoring:3000
     #grafana_user: "admin"
     #grafana_password: "admin"
