@@ -8,6 +8,8 @@
   with_items:
     - "192.168.57.3 backend1"
     - "192.168.57.4 backend2"
+    - "192.168.57.5 backup"
+    - "192.168.57.6 monitoring"
 
 - name: Install epel-release repository (for extra packages)
   yum:

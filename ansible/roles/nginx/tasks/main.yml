@@ -1,12 +1,6 @@
 ---
 # tasks file
 - include_tasks: 
-    file: change_hosts.yml
-    apply:
-      tags: change_hosts
-  tags: [ change_hosts, never ]
-
-- include_tasks: 
     file: install_nginx.yml
     apply:
       tags: install_nginx
