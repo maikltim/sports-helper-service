@@ -67,19 +67,19 @@ Vagrant.configure("2") do |config|
         ansible.playbook = "ansible/install.yml"
 
         if boxconfig[:vm_name] == "monitoring"
-         ansible.tags = ["install_prom", "install_grafana", "settings_grafana", "rsyslog-client", "install_node_exp"]
+         ansible.tags = ["install_prom", "install_grafana", "settings_grafana", "rsyslog-client", "install_node_exp", "firewall_on"]
         
         elsif boxconfig[:vm_name] == "backend2"
-          ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "install_node", "create_service", "copy_app", "rsyslog-client", "install_node_exp"]
+          ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "install_node", "create_service", "copy_app", "rsyslog-client", "install_node_exp", "firewall_on"]
 
         elsif boxconfig[:vm_name] == "backup"
-          ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "backup", "rsyslog-srv", "install_node_exp"]
+          ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "backup", "rsyslog-srv", "install_node_exp", "firewall_on"]
 
         elsif boxconfig[:vm_name] == "backend1"
-          ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "enable_repl", "install_node", "create_service", "copy_app", "rsyslog-client", "install_node_exp"]
+          ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "enable_repl", "install_node", "create_service", "copy_app", "rsyslog-client", "install_node_exp", "firewall_on"]
 
         elsif boxconfig[:vm_name] == "frontend"
-          ansible.tags = ["install_nginx", "syn_fold", "nginx_cfg", "nginx_selinux", "rsyslog-client", "install_node_exp"]
+          ansible.tags = ["install_nginx", "syn_fold", "nginx_cfg", "nginx_selinux", "rsyslog-client", "install_node_exp", "firewall_on"]
         end
       end
     end
