@@ -16,8 +16,8 @@
 
 - name: Копирование файла
   ansible.builtin.copy:
-    src: node-exporter-full.json  # указать путь к копируемому файлу на вашем локальном сервере
-    dest: /var/lib/grafana/dashboards # указать путь, куда файл будет
+    src: node-exporter-full.json
+    dest: /var/lib/grafana/dashboards
     owner: grafana
     group: grafana
     mode: 0755
