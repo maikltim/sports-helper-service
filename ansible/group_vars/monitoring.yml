@@ -1,5 +1,5 @@
 #allowed ports for firewalld
-allow_ports:
+allow_tcp_ports:
   - 25
   - 22
   - 9100

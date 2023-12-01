@@ -15,4 +15,13 @@
      permanent: yes
      state: enabled
      immediate: yes
-  loop: "{{ allow_ports }}"
+  loop: "{{ allow_tcp_ports }}"
+
+- name: Open UDP ports in the firewall
+  firewalld:
+     port: "{{ item }}/udp"
+     permanent: yes
+     state: enabled
+     immediate: yes
+  loop: "{{ allow_udp_ports }}"
+  when: allow_udp_ports is defined
