@@ -16,3 +16,4 @@
     - name: Add members
       command: mongo -u "{{ mongodb_root_user }}" -p {{ mongodb_root_password }} ./repladd.js
   when: "'mongo_primary' in group_names"
+  ignore_errors: true

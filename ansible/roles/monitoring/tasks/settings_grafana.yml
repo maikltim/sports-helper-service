@@ -6,11 +6,25 @@
     url: http://monitoring:3000
     tls_skip_verify: true
 
-- name: Import Grafana dashboard prometheus
-  community.grafana.grafana_dashboard:
-    grafana_url: http://monitoring:3000
-    #dashboard_id: 1860
-    #state: present
-    #commit_message: Updated by ansible
-    #overwrite: yes
-    #path: node-exporter-full.json
+- name: Create directory for Node.js app
+  ansible.builtin.file:
+    path: /var/lib/grafana/dashboards
+    state: directory
+    owner: grafana
+    group: grafana
+    mode: 0755
+
+- name: Копирование файла
+  ansible.builtin.copy:
+    src: node-exporter-full.json  # указать путь к копируемому файлу на вашем локальном сервере
+    dest: /var/lib/grafana/dashboards # указать путь, куда файл будет
+    owner: grafana
+    group: grafana
+    mode: 0755
+
+- name: Render Sample for Grafana provisioning
+  ansible.builtin.template:
+    src: sample.j2
+    dest: /etc/grafana/provisioning/dashboards/sample.yaml
+  notify:
+     - Restart grafana

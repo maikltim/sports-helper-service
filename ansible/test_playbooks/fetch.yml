@@ -6,6 +6,6 @@
   tasks:
     - name: Fetch grafana file
       ansible.builtin.fetch:
-        src: "/etc/grafana/grafana.ini"
-        dest: "./grafana.ini"
+        src: "/etc/grafana/provisioning/dashboards/sample.yaml"
+        dest: "./sample.j2"
         flat: yes

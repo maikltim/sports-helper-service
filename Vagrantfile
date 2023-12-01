@@ -4,7 +4,7 @@ MACHINES = {
   :monitoring => {
           :box_name => "centos/7",
           :vm_name => "monitoring",
-          :cpus => 2,
+          :cpus => 4,
           :memory => 4096,
           :ip => "192.168.57.6",
     },
