@@ -32,6 +32,6 @@ esac
 echo "Выбран backend: $backend"
 
 echo -e "\nПерезапускаю nginx для использования $backend\n"
-ansible-playbook nginx.yml --tags=nginx_cfg -e "backend_name=$backend"
+ansible-playbook install.yml -l "frontend" --tags=nginx_cfg -e "backend_name=$backend"
 echo -e "\nПерезапускаю sports-helper.service для использования $backend\n"
-ansible-playbook node.yml -l $backend --tags=restart
+ansible-playbook install.yml -l $backend --tags=restart
