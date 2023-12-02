@@ -257,7 +257,7 @@ ansible-playbook install.yml --tags=show_repl -l backend1
 ### 3.3 Подробное описание ролей основных сервисов
 
 Запуск всех серверов происходит с помощью оркестратора vagrant, provisioning настроен с помощью ansible.
-Каждый сервис описан с помощью ролей ansible. Роли ansible настроены таким образом, чтобы работало наследование тэгов при запуске playbook с тэгами.
+Каждый сервис описан с помощью ролей ansible. Роли ansible настроены таким образом, чтобы работало наследование тегов при запуске playbook с тегами.
 
 Основной playbook по запуску ролей:
 
@@ -299,4 +299,28 @@ ansible-playbook install.yml --tags=show_repl -l backend1
 - enable_repl - включение репликации базы mongo, запускается на основном primary участнике репликации,  
   необходимо запускать,когда все остальные участики реплиакции существуют, при восстановлении сервера primary, данный тег желательно не использовать.
 - show_repl - проверка состояния репликации mongodb
+
+**Роль backup теги:**
+
+- backup - создания сервиса планировщика по выполнения бэкапов с помощью mongodump.
+- show_backups -  проеверка наличя бэкапов.
+
+**Роль logs теги:**
+
+- rsyslog-client - настройка клиента по отправки логов rsyslog
+- rsyslog-srv - настройка сервера по приему логов rsyslog
+- check-logs - проверка существования логов на сервере rsylog
+
+**Роль monitoring теги:**
+
+- install_prom - установка prometheus
+- srv_prom_cfg - настройка конфига prometheus
+- install_node_exp - установка node exporter для prometheus
+- install_grafana - установка grafana
+- settings_grafana - настройка grafana
+
+**Роль firewalld теги:**
+
+- firewall_on - включение и настройка firewall. Разрешенные порты указаны в папке groups_vars.
+- firewall_off - отключение firewall.
 
