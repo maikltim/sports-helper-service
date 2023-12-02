@@ -8,7 +8,9 @@
 docker compose up
 ```
 
-Если все поднялось, создаём папку build командой:
+Проверим корректность работы зайдя на <http://localhost:3000>  
+Если все поднялось, создаём папку build командой,  
+это необходимо для дальнейшего создания prod:  
 
 выполним команду
 
@@ -16,30 +18,11 @@ docker compose up
 docker compose exec frontend npm run build
 ```
 
-Проверим корректность работы зайдя на http://localhost:3000
+Для удаления контейнеров используется команда:  
 
 ```bash
 docker compose down -v
 ```
-
-Подготовим локальный компьютер запустив local.yml
-
-```bash
-ansible-playbook local.yml --ask-become
-```
-
-```yml
----
-- import_playbook: ./local_playbooks/add_hosts.yml 
-- import_playbook: ./local_playbooks/mongo_key.yml 
-- import_playbook: ./local_playbooks/nginx_cert.yml
-```
-
-Будут выполнены действия на localhost:
-
-- добавлены записи  в  /etc/hosts
-- сгенерирован секретный ключ `mongo_key` необходимый для репликации серверов mongo
-- сгененирован самоподписанный сертификат для сервера nginx
 
 ## 2. Описание веб приложения sports-helper ( режим разработчика )
 
@@ -197,6 +180,34 @@ http://localhost:3000
 
 ## 3. Запуск проекта в prod
 
+### 3.1 Подготовим локальный компьютер
+
+Запустим local.yml
+
+```bash
+ansible-playbook local.yml --ask-become
+```
+
+```yml
+---
+- import_playbook: ./local_playbooks/add_hosts.yml 
+- import_playbook: ./local_playbooks/mongo_key.yml 
+- import_playbook: ./local_playbooks/nginx_cert.yml
+```
+
+Будут выполнены действия на localhost:
+
+- добавлены записи  в  /etc/hosts
+- сгенерирован секретный ключ `mongo_key` необходимый для репликации серверов mongo
+- сгененирован самоподписанный сертификат для сервера nginx
+
+Подымаем все сервера:
+
+```ruby
+vagrant up
+```
+
+Схема работы нашего приложения:
 
 Сервер с бэкапами также будет являться арбитром
 
@@ -204,4 +215,3 @@ backend1 - база mongo, приложение node
 backend2 - база mongo, приложение node
 backup база mongo репликация
 
-ansible-playbook nginx.yml --tags=nginx_cfg -e backend_name="backend2"
