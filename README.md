@@ -221,7 +221,7 @@ vagrant up
 
 <http://monitoring:3000>
 
-Сервер prometheus будет доступн по адресу:
+Сервер prometheus будет доступен по адресу:
 
 <http://monitoring:9090>
 
@@ -249,7 +249,7 @@ ansible-playbook install.yml --tags=show-backups -l backup
 ansible-playbook install.yml --tags=show_repl -l backend1
 ```
 
-Бэкапом кода приложенрия является github репозитарий.
+Бэкапом кода приложения является github репозитарий.
 
 На всех серверах запущена система безопасности selinux в режиме enforcing,  
 а также запущен firewall.
@@ -294,7 +294,7 @@ ansible-playbook install.yml --tags=show_repl -l backend1
 **Роль mongodb теги:**
 
 - install_mongo - установка mongodb
-- enable_auth - создание служебных пользователей и включение авторизации Mongo
+- enable_auth - создание служебных пользователей и включение авторизации mongo
 - mongo_conf - генерация конфига базы mongo
 - enable_repl - включение репликации базы mongo, запускается на основном primary участнике репликации,  
   необходимо запускать,когда все остальные участики реплиакции существуют, при восстановлении сервера primary, данный тег желательно не использовать.
@@ -302,8 +302,8 @@ ansible-playbook install.yml --tags=show_repl -l backend1
 
 **Роль backup теги:**
 
-- backup - создания сервиса планировщика по выполнения бэкапов с помощью mongodump.
-- show_backups -  проеверка наличя бэкапов.
+- backup - создания сервиса планировщика по выполнению бэкапов с помощью mongodump.
+- show_backups -  проеверка существования бэкапов.
 
 **Роль logs теги:**
 
@@ -332,7 +332,7 @@ ansible-playbook install.yml --tags=show_repl -l backend1
 vagrant up "имя сервера"
 ```
 
-В случае восстановления backend2, backup которы являются secondary участниками репликации mongodb,  
+В случае восстановления backend2, backup, которые являются secondary участниками репликации mongodb,  
 база автоматически произведет репликацию на восстановленный сервер.
 
 При восстановление сервера backend1 необходимо воспользоваться скриптом ``change_app.sh`` переключающим работу frontend nginx на backend2,
