@@ -271,7 +271,9 @@ ansible-playbook install.yml --tags=show-backups -l backup
     - firewalld
 ```
 
-**Роль nginx тэги**:
+**Роль nginx тэги:**
 
-- install_nginx 
-- nginx_cfg
+- install_nginx - установка nginx
+- nginx_cfg - генерация nginx cfg
+- syn_fold - синхронизация папки build frontend
+- nginx_selinux - настройка модуля безопасности selinux
