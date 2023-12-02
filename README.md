@@ -248,11 +248,10 @@ ansible-playbook install.yml --tags=show-backups -l backup
 На всех серверах запущена система безопасности selinux в режиме enforcing,  
 а также запущен firewall.
 
-### 3.3 Подробное описание ролей основных сервисов.
+### 3.3 Подробное описание ролей основных сервисов
 
 Запуск всех серверов происходит с помощью оркестратора vagrant, provisioning настроен с помощью ansible.
-Каждый сервис описан с помощью ролей ansible. Роли ansible настроены таким образом, чтобы работало наследование тэгов  
-при запуске playbook с тэгами.
+Каждый сервис описан с помощью ролей ansible. Роли ansible настроены таким образом, чтобы работало наследование тэгов при запуске playbook с тэгами.
 
 Основной playbook по запуску ролей:
 
@@ -272,4 +271,7 @@ ansible-playbook install.yml --tags=show-backups -l backup
     - firewalld
 ```
 
+**Роль nginx тэги**:
 
+- install_nginx 
+- nginx_cfg
