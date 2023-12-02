@@ -277,3 +277,19 @@ ansible-playbook install.yml --tags=show-backups -l backup
 - nginx_cfg - генерация nginx cfg
 - syn_fold - синхронизация папки build frontend
 - nginx_selinux - настройка модуля безопасности selinux
+
+**Роль nodejs тэги:**
+
+- install node - установка node
+- copy_app - копирование паки сервер - рабочего кода приложения backend
+- create_service - создание сервиса backend sports-helper
+- restart - перезапуск службы sports-helper
+
+**Роль nodejs тэги:**
+
+- install_mongo - установка mongodb
+- enable_auth - создание служебных пользователей и включение авторизации Mongo
+- mongo_conf - генерация конфига базы mongo
+- enable_repl - включение репликации базы mongo, запускается на основном primary участнике репликации,  
+  необходимо запускать,когда все остальные участики реплиакции существуют, при восстановлении сервера primary данный тэг желательно не использовать.
+  
