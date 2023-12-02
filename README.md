@@ -324,3 +324,44 @@ ansible-playbook install.yml --tags=show_repl -l backend1
 - firewall_on - включение и настройка firewall. Разрешенные порты указаны в папке groups_vars.
 - firewall_off - отключение firewall.
 
+### 3.4 Восстановление сервисов
+
+Сервера frontend, backend2, backup, monitoring восстанавливаются командной:
+
+```bash
+vagrant up "имя сервера"
+```
+
+В случае восстановления backend2, backup которы являются secondary участниками репликации mongodb,  
+база автоматически произведет репликацию на восстановленный сервер.
+
+При восстановление сервера backend1 необходимо воспользоваться скриптом ``change_app.sh`` переключающим работу frontend nginx на backend2,
+сервер bakend2 автоматически становиться primary членом mongodb
+
+```bash
+cd ansible
+user:~/sports-helper-service/ansible$ ./change_app.sh
+Выберите хост для переключения backend:
+
+1. backend1
+
+2. backend2
+
+В Vagrnatfile желательно убрать тег "enable_auth", для избежания долго ожидания при повтором включении репликации ( ansible пропустит ошибку )
+
+```ruby
+elsif boxconfig[:vm_name] == "backend1"  ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "enable_repl", "install_node", "create_service", "copy_app", "rsyslog-client", "install_node_exp", "firewall_on"]
+```
+
+Должно быть так:
+
+```ruby
+elsif boxconfig[:vm_name] == "backend1"  ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "install_node", "create_service", "copy_app", "rsyslog-client", "install_node_exp", "firewall_on"]
+```
+
+База mongo автоматически реплицируется на восстановленный backend1, после этого нужно frontend перенаправить на backend1.
+
+```bash
+vagrant up backend1
+./change_app.sh
+```
