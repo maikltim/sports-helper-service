@@ -28,7 +28,7 @@ docker compose down -v
 
 Для работы приложения sports-helper необходимы:
 
-- frontend на rectjs
+- frontend на reactjs
 - backend на nodejs
 - mongodb
 
@@ -243,12 +243,33 @@ cd ansible
 ansible-playbook install.yml --tags=show-backups -l backup
 ```
 
+Бэкапом кода приложенрия является github репозитарий.
+
 На всех серверах запущена система безопасности selinux в режиме enforcing,  
 а также запущен firewall.
 
-### 3.3 Подробное описание серверов
+### 3.3 Подробное описание ролей основных сервисов.
 
-Запуск всех серверов просиходит с помощью оркестратора vagrant, provisioning настроен с помощью ansible.
-Каждый сервис описан с помощью ролец ansible,
+Запуск всех серверов происходит с помощью оркестратора vagrant, provisioning настроен с помощью ansible.
+Каждый сервис описан с помощью ролей ansible. Роли ansible настроены таким образом, чтобы работало наследование тэгов  
+при запуске playbook с тэгами.
+
+Основной playbook по запуску ролей:
+
+```yml
+---
+- name: Install roles
+  hosts: all
+  become: yes
+  gather_facts: true
+  roles:
+    - monitoring
+    - logs
+    - nginx
+    - mongodb
+    - nodejs
+    - backup
+    - firewalld
+```
 
 
