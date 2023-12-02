@@ -243,6 +243,12 @@ cd ansible
 ansible-playbook install.yml --tags=show-backups -l backup
 ```
 
+Проверка состояния реплиакции mongodb:
+
+```bash
+ansible-playbook install.yml --tags=show_repl -l backend1
+```
+
 Бэкапом кода приложенрия является github репозитарий.
 
 На всех серверах запущена система безопасности selinux в режиме enforcing,  
@@ -271,25 +277,26 @@ ansible-playbook install.yml --tags=show-backups -l backup
     - firewalld
 ```
 
-**Роль nginx тэги:**
+**Роль nginx теги:**
 
 - install_nginx - установка nginx
 - nginx_cfg - генерация nginx cfg
 - syn_fold - синхронизация папки build frontend
 - nginx_selinux - настройка модуля безопасности selinux
 
-**Роль nodejs тэги:**
+**Роль nodejs теги:**
 
 - install node - установка node
-- copy_app - копирование паки сервер - рабочего кода приложения backend
+- copy_app - копирование папки server - рабочего кода приложения backend
 - create_service - создание сервиса backend sports-helper
 - restart - перезапуск службы sports-helper
 
-**Роль nodejs тэги:**
+**Роль mongodb теги:**
 
 - install_mongo - установка mongodb
 - enable_auth - создание служебных пользователей и включение авторизации Mongo
 - mongo_conf - генерация конфига базы mongo
 - enable_repl - включение репликации базы mongo, запускается на основном primary участнике репликации,  
-  необходимо запускать,когда все остальные участики реплиакции существуют, при восстановлении сервера primary данный тэг желательно не использовать.
-  
+  необходимо запускать,когда все остальные участики реплиакции существуют, при восстановлении сервера primary, данный тег желательно не использовать.
+- show_repl - проверка состояния репликации mongodb
+
