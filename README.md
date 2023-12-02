@@ -69,7 +69,7 @@ proxy": "<http://api:4200>", `api` это имя контейнера с бэк�
 - package-lock.json json файл для фиксации версий зависимостей.
 - папка build это рабочий код приложения, папка создаётся при запуске команды `docker compose exec frontend npm run build`.
   данна папка копируется на сервер nginx.
-- папка node modules пустая папка, эта папка куда инсталируются пакеты npm ( у нас она существует внутри контейнера frontend )
+- папка node modules пустая папка, эта папка куда инсталлируются пакеты npm ( у нас она существует внутри контейнера frontend )
 - Dockerfile - файл для создания контейнера frontend.  
  [Dockerfile](./client/Dockerfile)
 - папка public - содержит index.html и картинки
@@ -364,4 +364,33 @@ elsif boxconfig[:vm_name] == "backend1"  ansible.tags = ["install_mongo", "enabl
 ```bash
 vagrant up backend1
 ./change_app.sh
+```
+
+### 3.5 Карта ansible
+
+```bash
+.
+├── ansible.cfg
+├── change_app.sh
+├── group_vars
+│   ├── backup_servers.yml
+│   ├── clients.yml
+│   ├── mongo_primary.yml
+│   ├── mongo_secondary.yml
+│   └── monitoring.yml
+├── hosts
+├── install.yml
+├── local_playbooks
+│   ├── add_hosts.yml
+│   ├── mongo_key.yml
+│   └── nginx_cert.yml
+├── local.yml
+├── roles
+│   ├── backup
+│   ├── firewalld
+│   ├── logs
+│   ├── mongodb
+│   ├── monitoring
+│   ├── nginx
+│   └── nodejs
 ```
