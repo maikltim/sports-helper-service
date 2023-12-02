@@ -348,7 +348,7 @@ user:~/sports-helper-service/ansible$ ./change_app.sh
 2. backend2
 ```
 
-В Vagrnatfile желательно убрать тег "enable_auth", для избежания долго ожидания при повтором включении репликации ( ansible пропустит ошибку )
+В Vagrnatfile желательно убрать тег "enable_repl", для избежания долгого ожидания при повтором включении репликации ( ansible пропустит ошибку )
 
 ```ruby
 elsif boxconfig[:vm_name] == "backend1"  ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "enable_repl", "install_node", "create_service", "copy_app", "rsyslog-client", "install_node_exp", "firewall_on"]
