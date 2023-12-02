@@ -346,6 +346,7 @@ user:~/sports-helper-service/ansible$ ./change_app.sh
 1. backend1
 
 2. backend2
+```
 
 В Vagrnatfile желательно убрать тег "enable_auth", для избежания долго ожидания при повтором включении репликации ( ansible пропустит ошибку )
 
