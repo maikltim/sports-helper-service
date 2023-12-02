@@ -53,3 +53,9 @@
 
   when: "'backup_servers' in group_names"
   tags: "backup"
+
+- include_tasks: 
+    file: show-backups.yml
+    apply:
+      tags: show-backups
+  tags: [ show-backups, never ]

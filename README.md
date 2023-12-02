@@ -201,7 +201,7 @@ ansible-playbook local.yml --ask-become
 - сгенерирован секретный ключ `mongo_key` необходимый для репликации серверов mongo
 - сгененирован самоподписанный сертификат для сервера nginx
 
-### 3.2 Запуск всех серверов
+### 3.2 Запуск серверов
 
 Подымаем все сервера:
 
@@ -219,15 +219,36 @@ vagrant up
 
 Мониторинг будет доступен по адресу:
 
-<https://monitoring:3000>
+<http://monitoring:3000>
 
 Сервер prometheus будет доступн по адресу:
 
-<https://monitoring:3000>
+<http://monitoring:9090>
 
-Сервер с бэкапами также будет являться арбитром
+Логи располагаются на сервере backup.
 
-backend1 - база mongo, приложение node
-backend2 - база mongo, приложение node
-backup база mongo репликация
+Проверка существования логов:
+
+```bash
+cd ansible
+ansible-playbook install.yml --tags=check-logs -l backup
+```
+
+Проверка существования бэкапов:
+
+Бэкапы базы mongo располагаются на сервере backup:
+
+```bash
+cd ansible
+ansible-playbook install.yml --tags=show-backups -l backup
+```
+
+На всех серверах запущена система безопасности selinux в режиме enforcing,  
+а также запущен firewall.
+
+### 3.3 Подробное описание серверов
+
+Запуск всех серверов просиходит с помощью оркестратора vagrant, provisioning настроен с помощью ansible.
+Каждый сервис описан с помощью ролец ansible,
+
 
