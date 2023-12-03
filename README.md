@@ -121,7 +121,7 @@ proxy": "<http://api:4200>", `api` это имя контейнера с бэк�
 Сервис в dev режиме запускается с помощью docker compose.
 
 ```bash
-docker compse up
+docker compose up
 ```
 
 Docker-compose:
