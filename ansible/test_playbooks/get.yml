@@ -1,8 +1,7 @@
 ---
 - name: Fetch MongoDB config file
   hosts: localhost
-  gather_facts: true
-  become: true
+  gather_facts: false
   tasks:
 
      - name: Make HTTPS GET request
