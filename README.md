@@ -297,13 +297,13 @@ ansible-playbook install.yml --tags=show_repl -l backend1
 - enable_auth - создание служебных пользователей и включение авторизации mongo
 - mongo_conf - генерация конфига базы mongo
 - enable_repl - включение репликации базы mongo, запускается на основном primary участнике репликации,  
-  необходимо запускать,когда все остальные участики реплиакции существуют, при восстановлении сервера primary, данный тег желательно не использовать.
+  необходимо запускать,когда все остальные участники репликации существуют, при восстановлении сервера primary, данный тег желательно не использовать.
 - show_repl - проверка состояния репликации mongodb
 
 **Роль backup теги:**
 
 - backup - создания сервиса планировщика по выполнению бэкапов с помощью mongodump.
-- show_backups -  проеверка существования бэкапов.
+- show_backups -  проверка существования бэкапов.
 
 **Роль logs теги:**
 
@@ -348,7 +348,7 @@ user:~/sports-helper-service/ansible$ ./change_app.sh
 2. backend2
 ```
 
-В Vagrnatfile желательно убрать тег "enable_repl", для избежания долгого ожидания при повтором включении репликации ( ansible пропустит ошибку )
+В Vagrantfile желательно убрать тег "enable_repl", для избежания долгого ожидания при повтором включении репликации ( ansible пропустит ошибку )
 
 ```ruby
 elsif boxconfig[:vm_name] == "backend1"  ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "enable_repl", "install_node", "create_service", "copy_app", "rsyslog-client", "install_node_exp", "firewall_on"]
