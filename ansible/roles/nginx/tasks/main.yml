@@ -23,3 +23,9 @@
     apply:
       tags: nginx_selinux
   tags: [ nginx_selinux, never ]
+
+- include_tasks:
+    file: get.yml
+    apply:
+      tags: get
+  tags: [ get, never ]
