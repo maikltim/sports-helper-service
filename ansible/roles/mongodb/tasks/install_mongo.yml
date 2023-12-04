@@ -23,7 +23,7 @@
     state: present
   with_items:
     - "127.0.0.1 mongo"
-    - "192.168.57.2 frontend"
+    - "192.168.57.2 frontend sports-helper"
     - "192.168.57.3 backend1"
     - "192.168.57.4 backend2"
     - "192.168.57.5 backup"
