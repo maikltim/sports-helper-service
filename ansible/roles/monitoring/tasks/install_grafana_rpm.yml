@@ -1,0 +1,26 @@
+- name: Copy grafana rpm packet
+  copy:
+    src: grafana-enterprise-10.2.2-1.x86_64.rpm
+    dest: /tmp
+
+- name: Install package grafana
+  yum:
+     name: /tmp/grafana-enterprise-10.2.2-1.x86_64.rpm
+     state: present
+
+- name: Enable grafana service
+  systemd:
+    name: grafana-server
+    enabled: yes
+    masked: no
+
+- name: Start grafana service
+  systemd:
+    name: grafana-server
+    state: started
+
+#- name: Configuration file
+#  template:
+#    src: grafana.ini.j2
+#    dest: /etc/grafana/grafana.ini
+#  notify: Restart grafana

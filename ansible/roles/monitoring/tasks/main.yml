@@ -19,6 +19,12 @@
   tags: [ install_grafana, never ]
 
 - include_tasks: 
+    file: install_grafana_rpm.yml
+    apply:
+      tags: install_grafana_rpm
+  tags: [ install_grafana_rpm, never ]
+
+- include_tasks: 
     file: settings_grafana.yml
     apply:
       tags: settings_grafana

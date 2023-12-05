@@ -3,3 +3,4 @@
 docker-local.yml
 ping.yml
 test_playbooks/
+grafana-enterprise-10.2.2-1.x86_64.rpm

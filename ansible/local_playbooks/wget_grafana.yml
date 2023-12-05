@@ -1,0 +1,8 @@
+- name: create certs
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Download grafana rpm packet
+      get_url:
+        url: "https://dl.grafana.com/enterprise/release/grafana-enterprise-10.2.2-1.x86_64.rpm"
+        dest: ../roles/monitoring/files
