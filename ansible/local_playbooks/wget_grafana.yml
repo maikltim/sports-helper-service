@@ -1,4 +1,4 @@
-- name: create certs
+- name: wget grafana
   hosts: localhost
   gather_facts: false
   tasks:
