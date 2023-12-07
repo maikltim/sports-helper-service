@@ -3,4 +3,3 @@
   service:
     name: sports-helper
     state: restarted
-  delegate_to: backend2

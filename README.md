@@ -209,6 +209,20 @@ ansible-playbook local.yml --ask-become
 vagrant up
 ```
 
+После создания сервисов необходимо перезапустить сервис на secondary backend2 в силу специфики работы приложения sports-helper после включения сервера backend2 в репликационную группу.
+Запускаем для этого скрипт ./restart_backend.sh ( выбираем backend2)
+
+```bash
+cd ansible
+./restart_backend.sh 
+Выберите сервер backend для перезапуска sports-helper:
+
+1. backend1
+
+2. backend2
+Введите номер хоста (1 или 2): 1
+```
+
 Схема работы нашего приложения:
 
 ![scheme](images/scheme.png)
