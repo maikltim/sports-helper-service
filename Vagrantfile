@@ -76,8 +76,8 @@ Vagrant.configure("2") do |config|
           ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "backup", "rsyslog-srv", "install_node_exp", "firewall_on"]
 
         elsif boxconfig[:vm_name] == "backend1"
-          ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "enable_repl", "install_node", "create_service", "copy_app", "rsyslog-client", "install_node_exp", "firewall_on"]
-
+          ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "enable_repl", "install_node", "create_service", "copy_app", "restart_backend2", "rsyslog-client", "install_node_exp", "firewall_on"]
+          
         elsif boxconfig[:vm_name] == "frontend"
           ansible.tags = ["install_nginx", "syn_fold", "nginx_cfg", "nginx_selinux", "rsyslog-client", "install_node_exp", "firewall_on"]
         end

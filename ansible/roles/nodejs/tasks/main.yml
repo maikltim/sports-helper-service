@@ -19,7 +19,7 @@
   tags: [ copy_app, never ]
 
 - include_tasks: 
-    file: restart.yml
+    file: restart_backend2.yml
     apply:
-      tags: restart
-  tags: [ restart, never ]
+      tags: restart_backend2
+  tags: [ restart_backend2, never ]
