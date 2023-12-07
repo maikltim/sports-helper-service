@@ -26,5 +26,5 @@ echo "Выбран backend: $backend"
 
 echo -e "\nПерезапускаю nginx для использования $backend\n"
 ansible-playbook install.yml -l "frontend" --tags=nginx_cfg -e "backend_name=$backend"
-#echo -e "\nПерезапускаю sports-helper.service для использования $backend\n"
-#ansible-playbook install.yml -l $backend --tags=restart
+echo -e "\nПерезапускаю sports-helper.service для использования $backend\n"
+ansible-playbook install.yml -l $backend --tags=restart

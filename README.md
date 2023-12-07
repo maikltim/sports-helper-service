@@ -326,7 +326,7 @@ ansible-playbook install.yml --tags=show_repl -l backend1
 
 ### 3.4 Восстановление сервисов
 
-Сервера frontend, backend2, backup, monitoring восстанавливаются командной:
+Сервера frontend, backend1, backend2, backup, monitoring восстанавливаются командной:
 
 ```bash
 vagrant up "имя сервера"
@@ -335,8 +335,18 @@ vagrant up "имя сервера"
 В случае восстановления backend2, backup, которые являются secondary участниками репликации mongodb,  
 база автоматически произведет репликацию на восстановленный сервер.
 
-При восстановление сервера backend1 необходимо воспользоваться скриптом ``change_app.sh`` переключающим работу frontend nginx на backend2,
-сервер bakend2 автоматически становиться primary членом mongodb
+При восстановление сервера backend1, который является primary участником репликации mongodb, база автоматически произведет репликацию, и backend1 станет primary.
+За автоматическое переключение запросов на резервный бэкенд в случае отказа отвечает nginx сервер:
+
+```nginx
+upstream backend {
+    server {{ backend_name }}:{{ backend_port }} fail_timeout=3s max_fails=2;
+    server {{ backend_name_back }}:{{ backend_port }} backup;
+}
+```
+
+Также стоит учесть, что при восстановление backend1, в момент provision сервера, которое занимает время, так как сервер включен и доступен, nginx будет считать сервер доступным ( хотя сервер еще устаналивается ) и секция:
+``server {{ backend_name }}:{{ backend_port }} fail_timeout=3s max_fails=2;`` будет ввести на еще не готовый сервис. Чтобы этого не происходило, можно воспользоваться скиптом ``change_app.sh`` переключающим на другой бэкенд. Либо производить восстановление в часы для технического обслуживания ( бэкенд будет не доступен ).
 
 ```bash
 cd ansible
@@ -360,12 +370,7 @@ elsif boxconfig[:vm_name] == "backend1"  ansible.tags = ["install_mongo", "enabl
 elsif boxconfig[:vm_name] == "backend1"  ansible.tags = ["install_mongo", "enable_auth", "mongo_conf", "install_node", "create_service", "copy_app", "rsyslog-client", "install_node_exp", "firewall_on"]
 ```
 
-База mongo автоматически реплицируется на восстановленный backend1, после этого нужно frontend перенаправить на backend1.
-
-```bash
-vagrant up backend1
-./change_app.sh
-```
+После восстановления вернуть основной бэкенд скриптом ./change_app.sh ( если скрипт использовали для переключения на backend2 )
 
 ### 3.5 Карта ansible
 
