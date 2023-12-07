@@ -303,7 +303,7 @@ ansible-playbook install.yml --tags=show_repl -l backend1
 **Роль backup теги:**
 
 - backup - создания сервиса планировщика по выполнению бэкапов с помощью mongodump.
-- show_backups -  проверка существования бэкапов.
+- show-backups -  проверка существования бэкапов.
 
 **Роль logs теги:**
 

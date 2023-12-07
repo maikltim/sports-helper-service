@@ -1,3 +1,7 @@
+upstream backend {
+    server {{ backend_name }}:{{ backend_port }} fail_timeout=3s max_fails=2;
+    server {{ backend_name_back }}:{{ backend_port }} backup;
+}
 
 server {
     listen          *:80;
@@ -21,7 +25,7 @@ server {
 
     # Проксирование запросов к вашему бэкенду
     location  ~ ^/(users|marks|fields|field|event|events|request) {
-        proxy_pass http://{{ backend_name }}:{{ backend_port }};  # Обновленный путь к бэкенду
+        proxy_pass http://backend;  # Обновленный путь к бэкенду
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
@@ -31,6 +35,8 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Host $server_name;
     }
+
+
 
 
     # Дополнительные настройки сервера, если необходимо
