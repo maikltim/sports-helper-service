@@ -403,8 +403,10 @@ elsif boxconfig[:vm_name] == "backend1"  ansible.tags = ["install_mongo", "enabl
 ├── local_playbooks
 │   ├── add_hosts.yml
 │   ├── mongo_key.yml
-│   └── nginx_cert.yml
+│   ├── nginx_cert.yml
+│   └── wget_grafana.yml
 ├── local.yml
+├── restart_backend.sh
 ├── roles
 │   ├── backup
 │   ├── firewalld
