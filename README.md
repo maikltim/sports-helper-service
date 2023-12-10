@@ -193,6 +193,7 @@ ansible-playbook local.yml --ask-become
 - import_playbook: ./local_playbooks/add_hosts.yml 
 - import_playbook: ./local_playbooks/mongo_key.yml 
 - import_playbook: ./local_playbooks/nginx_cert.yml
+- import_playbook: ./local_playbooks/wget_grafana.yml
 ```
 
 Будут выполнены действия на localhost:
@@ -200,6 +201,7 @@ ansible-playbook local.yml --ask-become
 - добавлены записи  в  /etc/hosts
 - сгенерирован секретный ключ `mongo_key` необходимый для репликации серверов mongo
 - сгененирован самоподписанный сертификат для сервера nginx
+- скачен rpm пакет для установки grafana
 
 ### 3.2 Запуск серверов
 
