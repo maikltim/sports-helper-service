@@ -1,0 +1,61 @@
+--- 
+- name: Create User Prometheus 
+  user:
+    name: prometheus 
+    create_home: no
+    shell: /bin/false 
+
+- name: create directories for prometheus 
+  file:
+    path: "{{ item }}"
+    state: directory 
+    owner: prometheus 
+    group: prometheus
+  loop:
+    - '/tmp/prometheus'
+    - '/etc/promethus'
+    - '/var/lib/prometheus' 
+
+
+- name: Download And Unzipped Prometheus 
+  unarchvive:
+    src: https://github.com/prometheus/prometheus/releases/download/v2.46.0/prometheus-2.46.0.linux-amd64.tar.gz
+    dest: /tmp/prometheus 
+    creates: /tmp/prometheus/prometheus-2.46.0.linux-amd6
+    remote_src: yes 
+
+
+- name: Copy Bin Files From Unzipped to Prometheus
+  copy:
+    src: /tmp/prometheus/prometheus-2.46.0.linux-amd6{{ item }}
+    dest: /usr/local/bin 
+    remote_src: yes 
+    mode: preserve 
+    owner: prometheus
+    group: prometheus
+  loop: [ 'prometheus', 'promtool' ]
+
+
+- name: Copy Conf Files From Unzipped to Prometheus 
+  copy:
+    src: /tmp/prometheus/prometheus-2.46.0.linux-amd6{{ item }}
+    dest: /etc/promethus 
+    remote_src: yes 
+    mode: preserve
+    owner: prometheus
+    group: prometheus
+  loop: [ 'console_libraries', 'consoles', 'prometheus.yml' ]
+
+- name: Create file for Prometheus Systemd
+  template:
+    src=templates/prometheus.service
+    dest=/etc/systemd/system/
+  notify: 
+    - systemd reload 
+
+
+- name: systemctl Prometheus Start
+  systemd:
+    name: prometheus
+    state: started 
+    enabled: yes  
