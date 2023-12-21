@@ -1,0 +1,24 @@
+---
+- name: Get information
+  hosts: backend1
+  become: yes
+  gather_facts: true
+
+  tasks:
+    - name: Gather all supported information
+      community.mongodb.mongodb_info:
+        login_user: root
+        login_password: root1234
+        #login_database: admin
+      register: result
+
+    - name: Show gathered info
+      debug:
+        msg: '{{ result }}'
+
+    - name: Gather only information about databases and their total size
+      community.mongodb.mongodb_info:
+        login_user: root
+        login_password: root1234
+        #login_database: admin
+        filter: databases, total_size

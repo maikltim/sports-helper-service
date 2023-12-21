@@ -1,0 +1,15 @@
+// Установка параметров записи, необходимо для добавления арбитра, глюк 5 ой версии mongo
+db.adminCommand({
+  "setDefaultRWConcern": 1,
+  "defaultWriteConcern": {
+    "w": 1
+  }
+});
+
+{% for secondary in groups['mongo_secondary'] %}
+rs.add({ host: "{{ secondary }}:27017", priority: {{ hostvars[secondary]['priority'] }} })
+{% endfor %}
+{% for arbiter in groups['arbiter'] %}
+rs.addArb("{{ arbiter }}:27017")
+{% endfor %}
+printjson(rs.status())

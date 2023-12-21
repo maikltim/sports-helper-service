@@ -1,0 +1,25 @@
+---
+# tasks file
+- include_tasks: 
+    file: install_node.yml
+    apply:
+      tags: install_node
+  tags: [ install_node, never ]
+
+- include_tasks: 
+    file: create_service.yml
+    apply:
+      tags: create_service
+  tags: [ create_service, never ]
+
+- include_tasks: 
+    file: copy_app.yml
+    apply:
+      tags: copy_app
+  tags: [ copy_app, never ]
+
+- include_tasks: 
+    file: restart.yml
+    apply:
+      tags: restart
+  tags: [ restart, never ]

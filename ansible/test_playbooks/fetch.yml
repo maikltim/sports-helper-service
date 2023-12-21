@@ -1,0 +1,11 @@
+---
+- name: Fetch MongoDB config file
+  hosts: all
+  gather_facts: true
+  become: true
+  tasks:
+    - name: Fetch grafana file
+      ansible.builtin.fetch:
+        src: "/etc/grafana/provisioning/dashboards/sample.yaml"
+        dest: "./sample.j2"
+        flat: yes

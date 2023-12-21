@@ -1,0 +1,13 @@
+---
+# tasks file for firewalld
+- include_tasks: 
+    file: firewall_on.yml
+    apply:
+      tags: firewall_on
+  tags: [ firewall_on, never ]
+
+- include_tasks: 
+    file: firewall_off.yml
+    apply:
+      tags: firewall_off
+  tags: [ firewall_off, never ]

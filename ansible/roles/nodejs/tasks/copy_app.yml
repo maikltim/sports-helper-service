@@ -1,0 +1,38 @@
+
+- name: Create directory for Node.js app
+  ansible.builtin.file:
+        path: /var/node/sports-helper
+        state: directory
+        owner: node_user
+        group: node_user
+
+- name: Synchronize local folder contents to remote server
+  ansible.builtin.synchronize:
+      src: ../server/
+      dest: /var/node/sports-helper/
+      recursive: yes
+      delete: yes
+
+- name: Install packages based on package.json.
+  community.general.npm:
+    path: /var/node/sports-helper
+    ci: true #use package-lock.json
+
+- name: Set ownership and permissions for node user
+  file:
+    path: "/var/node/sports-helper/"
+    owner: node_user
+    group: node_user
+    recurse: yes
+
+- name: Create .env for service
+  ansible.builtin.template:
+    src: env.j2
+    dest: "/var/node/sports-helper/.env"
+    owner: node_user
+    group: node_user
+    mode: "0400"
+
+  notify:
+     - Restart sports-helper
+  

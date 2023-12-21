@@ -1,0 +1,81 @@
+---
+- name: Add entries to /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    line: "{{ item }}"
+    state: present
+  with_items:
+    - "192.168.57.2 frontend sports-helper"
+    - "192.168.57.3 backend1"
+    - "192.168.57.4 backend2"
+    - "192.168.57.5 backup"
+   
+- name: Create Prometheus group
+  group:
+    name: prometheus
+    state: present
+
+- name: Create Prometheus user
+  user:
+    name: prometheus
+    shell: /bin/false
+    createhome: no
+    groups: prometheus
+
+- name: Create Prometheus directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: prometheus
+    group: prometheus
+    mode: 0755
+  loop:
+    - /etc/prometheus
+    - /var/lib/prometheus
+
+- name: Download And Unzipped Prometheus 
+  unarchive:
+    src: https://github.com/prometheus/prometheus/releases/download/v2.46.0/prometheus-2.46.0.linux-amd64.tar.gz
+    dest: /tmp
+    creates: /tmp/prometheus-2.46.0.linux-amd64
+    remote_src: yes 
+
+- name: Copy Bin Files From Unzipped to Prometheus
+  copy:
+    src: /tmp/prometheus-2.46.0.linux-amd64/{{ item }}
+    dest: /usr/local/bin 
+    mode: 0755
+    owner: prometheus
+    group: prometheus
+    remote_src: yes 
+  loop: [ 'prometheus', 'promtool' ]
+
+- name: Copy Conf Files From Unzipped to Prometheus 
+  copy:
+    src: /tmp/prometheus-2.46.0.linux-amd64/{{ item }}
+    dest: /etc/prometheus 
+    mode: 0755
+    owner: prometheus
+    group: prometheus
+    remote_src: yes 
+  loop: [ 'console_libraries', 'consoles', 'prometheus.yml' ]
+
+- name: Generate prometheus cfg
+  template: 
+     src: prometheus_cfg.j2 
+     dest: /etc/prometheus/prometheus.yml
+     owner: prometheus
+     group: prometheus
+  
+- name: Render prometheus service template
+  ansible.builtin.template:
+    src: prometheus_service.j2
+    dest: /etc/systemd/system/prometheus.service
+
+- name: Service enable
+  ansible.builtin.systemd:
+    state: started
+    name: prometheus
+    daemon_reload: true
+    enabled: true
+  

@@ -1,0 +1,61 @@
+---
+- name: MongoDB Backups
+  block:
+  - name: Create backup directory
+    file:
+      path: /var/backups/mongobackups
+      state: directory
+      mode: '0755'
+
+  - name: Create backup script
+    template:
+      src: mongodump_script.sh.j2
+      dest: /usr/local/bin/mongodump_script.sh
+      mode: '0755'
+ 
+  - name: Create secrets file
+    template:
+      src: mongodump_env.j2
+      dest: /etc/default/mongodump_env
+      mode: '0600'
+
+  - name: Create systemd service
+    template:
+      src: mongodump.service.j2
+      dest: /etc/systemd/system/mongodump.service
+      mode: '0644'
+
+  - name: Create systemd timer
+    template:
+      src: mongodump.timer.j2
+      dest: /etc/systemd/system/mongodump.timer
+      mode: '0644'
+
+  - name: Start and enable mongodump timer
+    systemd:
+      name: mongodump.timer
+      state: started
+      enabled: yes
+
+  - name: Create backup
+    systemd:
+       name: mongodump.service
+       state: started
+      
+  - name: Check if backup exists
+    ansible.builtin.shell:
+      cmd: "ls /var/backups/mongobackups/"
+    register: backup_status
+
+  - name: Show Backups
+    debug:
+      var: backup_status.stdout_lines
+
+  when: "'backup_servers' in group_names"
+  tags: "backup"
+
+- include_tasks: 
+    file: show-backups.yml
+    apply:
+      tags: show-backups
+  tags: [ show-backups, never ]

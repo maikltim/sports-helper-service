@@ -1,0 +1,6 @@
+---
+# handlers file for sports-helper
+- name: Restart sports-helper
+  service:
+    name: sports-helper
+    state: restarted

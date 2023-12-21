@@ -1,0 +1,41 @@
+# task  for install nginx
+
+- name: Add entries to /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    line: "{{ item }}"
+    state: present
+  with_items:
+    - "192.168.57.2 sports-helper"
+    - "192.168.57.3 backend1"
+    - "192.168.57.4 backend2"
+    - "192.168.57.5 backup"
+    - "192.168.57.6 monitoring"
+
+- name: Install epel-release repository (for extra packages)
+  yum:
+    name: epel-release
+    state: present
+
+- name: Install Nginx
+  yum:
+    name: nginx
+    state: present
+
+- name: mkdir for ssl
+  file:
+    path: "/etc/nginx/ssl"
+    state: directory
+
+- name: Copy certs
+  copy: src={{ item }} dest="/etc/nginx/ssl"
+  loop:
+      - "mycert.crt"
+      - "mycert.key"
+
+- name: Start Nginx service
+  service:
+    name: nginx
+    state: started
+    enabled: yes  # Ensure Nginx starts on boot
+

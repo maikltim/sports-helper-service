@@ -1,0 +1,55 @@
+- name: Create directory for mongo key_file
+  ansible.builtin.file:
+        path: /var/lib/mongo/ssl
+        state: directory
+        owner: mongod
+        group: mongod
+        mode: '0700'
+- name: Copy MongoDB secret key file
+  ansible.builtin.copy:
+      src: mongo_keyfile
+      dest: /var/lib/mongo/ssl/mongo_keyfile
+      mode: "0400"
+      owner: mongod
+      group: mongod
+
+#- name: Create MongoDB database
+#  mongodb_db:
+#     name: "{{ database_name }}"
+#     state: present
+
+- name: Create MongoDB root user
+  mongodb_user:
+    login_port: "27017"
+    database: "admin"
+    name: "{{ mongodb_root_user }}"
+    password: "{{ mongodb_root_password }}"
+    roles: "root"
+  ignore_errors: true
+
+- name: Create MongoDB administrative user siteUserAdmin
+  mongodb_user:
+    login_user: "{{ mongodb_root_user }}"
+    login_password: "{{ mongodb_root_password }}"
+    login_port: "27017"
+    database: "{{ database_name }}"
+    name: "{{ mongodb_admin_user }}"
+    password: "{{ mongodb_admin_password }}"
+    roles:
+      - { db: "admin", role: "readWrite" }
+      - { db: "{{ database_name }}", role: "readWrite" }
+  ignore_errors: true
+
+- name: Create MongoDB backup user siteUserBackup
+  mongodb_user:
+    login_user: "{{ mongodb_root_user }}"
+    login_password: "{{ mongodb_root_password }}"
+    login_port: "27017"
+    database: "{{ database_name }}"
+    name: "{{ mongodb_backup_user }}"
+    password: "{{ mongodb_backup_password }}"
+    roles:
+      - { db: "admin", role: "backup" }
+  ignore_errors: true
+  notify:
+     - Restart MongoDB

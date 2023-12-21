@@ -1,0 +1,8 @@
+- name: Check if backup exists
+  ansible.builtin.shell:
+      cmd: "ls /var/backups/mongobackups/"
+  register: backup_status
+
+- name: Show Backups
+  debug:
+      var: backup_status.stdout_lines

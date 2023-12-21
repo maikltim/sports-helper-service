@@ -1,0 +1,37 @@
+---
+# tasks file for monitoring
+- include_tasks: 
+    file: install_prom.yml
+    apply:
+      tags: install_prom
+  tags: [ install_prom, never ]
+
+- include_tasks: 
+    file: srv_prom_cfg.yml
+    apply:
+      tags: srv_prom_cfg
+  tags: [ srv_prom_cfg, never ]
+
+- include_tasks: 
+    file: install_grafana.yml
+    apply:
+      tags: install_grafana
+  tags: [ install_grafana, never ]
+
+- include_tasks: 
+    file: install_grafana_rpm.yml
+    apply:
+      tags: install_grafana_rpm
+  tags: [ install_grafana_rpm, never ]
+
+- include_tasks: 
+    file: settings_grafana.yml
+    apply:
+      tags: settings_grafana
+  tags: [ settings_grafana, never ]
+
+- include_tasks: 
+    file: install_node_exp.yml
+    apply:
+      tags: install_node_exp
+  tags: [ install_node_exp, never ]

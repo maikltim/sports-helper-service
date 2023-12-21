@@ -1,0 +1,7 @@
+#allowed ports for firewalld
+allow_tcp_ports:
+  - 80
+  - 443
+  - 22
+  - 9100
+  - 111

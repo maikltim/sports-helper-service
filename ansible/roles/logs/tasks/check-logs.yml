@@ -1,0 +1,8 @@
+- name: Check if logs exists
+  ansible.builtin.shell:
+    cmd: "ls /var/log/rsyslog/*"
+  register: logs_status
+
+- name: Show Logs
+  debug:
+    var: logs_status.stdout_lines

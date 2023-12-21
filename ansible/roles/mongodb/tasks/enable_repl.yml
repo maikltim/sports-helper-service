@@ -1,0 +1,19 @@
+- name: MongoDB Replica Set Configuration
+  block:
+    - name: Create file to initiate replica set
+      template:
+        src: initReplicaSet.j2
+        dest: ./initReplicaSet.js
+
+    - name: Initialize the replica set
+      command: mongo -u "{{ mongodb_root_user }}" -p {{ mongodb_root_password }} ./initReplicaSet.js
+
+    - name: Create file to add members
+      template:
+        src: repladd.j2
+        dest: ./repladd.js
+
+    - name: Add members
+      command: mongo -u "{{ mongodb_root_user }}" -p {{ mongodb_root_password }} ./repladd.js
+  when: "'mongo_primary' in group_names"
+  ignore_errors: true

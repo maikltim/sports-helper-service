@@ -1,0 +1,17 @@
+---
+- name: Copy Contents of Local Folder to Remote Server
+  hosts: backend1
+  become: true
+
+  tasks:
+    - name: Synchronize local folder contents to remote server
+      ansible.builtin.synchronize:
+        src: ../server/
+        dest: /var/node/sports-helper/
+        recursive: yes
+        delete: yes
+
+
+    - name: Install packages based on package.json.
+      community.general.npm:
+        path: /var/node/sports-helper

@@ -1,0 +1,20 @@
+[clients]
+frontend ansible_host=192.168.57.2 ansible_user=vagrant ansible_ssh_private_key_file=../.vagrant/machines/frontend/virtualbox/private_key
+
+[mongo_primary]
+backend1 ansible_host=192.168.57.3 ansible_user=vagrant ansible_ssh_private_key_file=../.vagrant/machines/backend1/virtualbox/private_key priority=10
+
+[mongo_secondary]
+backend2 ansible_host=192.168.57.4 ansible_user=vagrant ansible_ssh_private_key_file=../.vagrant/machines/backend2/virtualbox/private_key priority=1
+
+[arbiter]
+backup ansible_host=192.168.57.5 ansible_user=vagrant ansible_ssh_private_key_file=../.vagrant/machines/backup/virtualbox/private_key
+
+[backup_servers]
+backup ansible_host=192.168.57.5 ansible_user=vagrant ansible_ssh_private_key_file=../.vagrant/machines/backup/virtualbox/private_key
+
+[log_servers]
+backup ansible_host=192.168.57.5 ansible_user=vagrant ansible_ssh_private_key_file=../.vagrant/machines/backup/virtualbox/private_key
+
+[monitoring]
+monitoring ansible_host=192.168.57.6 ansible_user=vagrant ansible_ssh_private_key_file=../.vagrant/machines/monitoring/virtualbox/private_key

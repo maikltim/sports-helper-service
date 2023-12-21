@@ -1,0 +1,17 @@
+- name: create certs
+  hosts: localhost
+  gather_facts: true
+  become: yes
+  tasks:
+    - name: Add entries to /etc/hosts
+      lineinfile:
+        path: /etc/hosts
+        line: "{{ item }}"
+        state: present
+      with_items:
+        - "192.168.57.2 sports-helper"
+        - "192.168.57.2 frontend"
+        - "192.168.57.3 backend1"
+        - "192.168.57.4 backend2"
+        - "192.168.57.5 backup"
+        - "192.168.57.6 monitoring"

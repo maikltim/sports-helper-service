@@ -1,0 +1,51 @@
+- name: create certs
+  hosts: localhost
+  gather_facts: false
+  become: yes
+  tasks:
+
+    - name: Check if key file already exists
+      ansible.builtin.stat:
+        path: "../roles/nginx/files/mycert.key"
+      register: keyfile_stat
+    
+    - name: Generate key, csr, and crt if key file does not exist
+      block:
+       - name: Создаем закрытый ключ (key)
+         openssl_privatekey:
+           path: ../roles/nginx/files/mycert.key
+           size: 2048
+         when: keyfile_stat.stat.exists == false
+         
+       - name: Создаем файл запроса (csr)
+         openssl_csr:
+           path: ../roles/nginx/files/mycert.csr
+           privatekey_path: ../roles/nginx/files/mycert.key
+           country_name: RU
+           locality_name: Russian Federation
+           organization_name: Mikhail
+           email_address: timofeevms@mail.ru
+           common_name: sports-helper
+           subject_alt_name:
+           - "DNS:www.sports.helper"
+         when: keyfile_stat.stat.exists == false
+          
+       - name: Создаем самоподписанный сертификат (crt)
+         openssl_certificate:
+           path: ../roles/nginx/files/mycert.crt
+           csr_path: ../roles/nginx/files/mycert.csr
+           privatekey_path: ../roles/nginx/files/mycert.key
+           provider: selfsigned
+         when: keyfile_stat.stat.exists == false
+     
+       - name: Set permissions для закрытого ключа
+         ansible.builtin.file:
+           path: "../roles/nginx/files/mycert.key"
+           mode: "0644"
+         when: keyfile_stat.stat.exists == false
+     
+       - name: Удаяляем файл запроса
+         ansible.builtin.file:
+           path: "../roles/nginx/files/mycert.csr"
+           state: absent
+      when: keyfile_stat.stat.exists == false

@@ -1,0 +1,7 @@
+- name: Run rs.status() command
+  command: mongo -u "{{ mongodb_root_user }}" -p {{ mongodb_root_password }} --eval "rs.status()"
+  register: rs_status_output
+
+- name: Display rs.status() output
+  debug:
+    var: rs_status_output.stdout_lines

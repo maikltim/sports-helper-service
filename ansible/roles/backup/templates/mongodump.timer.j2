@@ -1,0 +1,10 @@
+[Unit]
+Description=MongoDB Backup Timer
+Requires=mongodump.service
+
+[Timer]
+OnCalendar=*-*-* 23:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

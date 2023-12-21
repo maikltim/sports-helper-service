@@ -1,0 +1,9 @@
+#allowed ports for firewalld
+allow_tcp_ports:
+  - 514
+  - 22
+  - 9100
+  - 27017
+  - 111
+allow_udp_ports:
+  - 514

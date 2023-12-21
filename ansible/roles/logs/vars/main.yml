@@ -1,0 +1,3 @@
+---
+# vars file for logs
+log_server: "backup"

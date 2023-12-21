@@ -1,0 +1,13 @@
+[Unit]
+Description=Sports-helper Service
+After=network.target
+
+[Service]
+ExecStart=/bin/npm start
+Restart=always
+User=node_user
+Group=node_user
+WorkingDirectory={{ nodejs_package_json_path }}
+
+[Install]
+WantedBy=multi-user.target

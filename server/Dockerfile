@@ -1,4 +1,4 @@
-FROM node:12
+FROM node:14
 
 WORKDIR /app
 
@@ -9,6 +9,6 @@ COPY package*.json ./
 # Установка зависимостей
 RUN npm install
 
-COPY . ./
+#COPY . ./
 
 CMD ["npm", "start"]

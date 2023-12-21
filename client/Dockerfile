@@ -1,16 +1,12 @@
-FROM node:12
+FROM node:14
 
 WORKDIR /app
 
 EXPOSE 3000
 
-COPY package*.json ./
+COPY package*.json  ./
 
 # Установка зависимостей
 RUN npm install
 
-COPY . ./
-
-#CMD ["npm", "start", "--no-exit"]
-# Запуск бесконечной команды для предотвращения завершения контейнера
-CMD tail -f /dev/null
+CMD ["npm", "start"]

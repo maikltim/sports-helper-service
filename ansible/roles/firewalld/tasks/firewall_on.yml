@@ -1,0 +1,27 @@
+- name: Ensure firewalld is installed
+  yum:
+     name: firewalld
+     state: present
+
+- name: Start and enable firewalld
+  service:
+     name: firewalld
+     state: started
+     enabled: yes
+
+- name: Open TCP ports in the firewall
+  firewalld:
+     port: "{{ item }}/tcp"
+     permanent: yes
+     state: enabled
+     immediate: yes
+  loop: "{{ allow_tcp_ports }}"
+
+- name: Open UDP ports in the firewall
+  firewalld:
+     port: "{{ item }}/udp"
+     permanent: yes
+     state: enabled
+     immediate: yes
+  loop: "{{ allow_udp_ports }}"
+  when: allow_udp_ports is defined

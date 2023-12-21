@@ -1,0 +1,12 @@
+#!/bin/bash
+
+BACKUP_DIR="/var/backups/mongobackups"
+DATE=$(date +"%m-%d-%y")
+
+# Загрузка переменных среды из секретного файла
+source /etc/default/mongodump_env
+
+mongodump --host $DB_HOST --db $DB_NAME --out "$BACKUP_DIR/$DB_NAME-$DATE" --username $MONGO_USER --password $MONGO_PASS
+
+# Remove backups older than 7 days
+find "$BACKUP_DIR" -type d -mtime +7 -exec rm -r {} \;

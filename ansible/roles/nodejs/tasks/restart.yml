@@ -1,0 +1,5 @@
+#restart backend2, it is need for secondary member after switch replications mongo
+- name: Restart sports-helper
+  service:
+    name: sports-helper
+    state: restarted

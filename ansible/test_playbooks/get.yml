@@ -1,0 +1,20 @@
+---
+- name: Fetch MongoDB config file
+  hosts: localhost
+  gather_facts: false
+  tasks:
+
+     - name: Make HTTPS GET request
+       uri:
+          url: "{{ item }}"
+          method: GET
+          validate_certs: no
+       loop:
+          - "https://sports-helper"
+          - "https://sports-helper/users"
+       register: http_results
+     
+     - name: Display HTTP response details
+       debug:
+         var: item
+       loop: "{{ http_results.results }}"

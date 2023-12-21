@@ -1,0 +1,9 @@
+- name: Update mongod.conf
+  template: 
+    src: mongod.conf.j2
+    dest: /etc/mongod.conf
+  notify:
+     - Restart MongoDB
+  
+- name: Restart MongoDB
+  meta: flush_handlers

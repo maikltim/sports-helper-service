@@ -1,0 +1,30 @@
+- name: Add Prometheus Data Source
+  grafana_datasource:
+    name: Prometheus
+    ds_type: prometheus
+    ds_url: http://monitoring:9090
+    url: http://monitoring:3000
+    tls_skip_verify: true
+
+- name: Create directory for Node.js app
+  ansible.builtin.file:
+    path: /var/lib/grafana/dashboards
+    state: directory
+    owner: grafana
+    group: grafana
+    mode: 0755
+
+- name: Копирование файла
+  ansible.builtin.copy:
+    src: node-exporter-full.json
+    dest: /var/lib/grafana/dashboards
+    owner: grafana
+    group: grafana
+    mode: 0755
+
+- name: Render Sample for Grafana provisioning
+  ansible.builtin.template:
+    src: sample.j2
+    dest: /etc/grafana/provisioning/dashboards/sample.yaml
+  notify:
+     - Restart grafana
